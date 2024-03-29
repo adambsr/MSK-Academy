@@ -1,0 +1,52 @@
+<ng-container *transloco="let t">
+    <h2 mat-dialog-title style="color: #1565c0; font-size: 24px; text-align: center;">{{ t("User Details") }}</h2>
+    <mat-dialog-content style="padding: 20px;">
+      <div style="margin-bottom: 20px;">
+        <h3 style="color: #2e7d32; font-size: 20px; margin-bottom: 10px;">{{ t("Personal Information") }}</h3>
+        <p><strong>{{ t("First name") }}:</strong> {{ tutor.firstName }}</p>
+        <p><strong>{{ t("Last name") }}:</strong> {{ tutor.lastName }}</p>
+        <p><strong>{{ t("Username") }}:</strong> {{ tutor.username }}</p>
+        <p><strong>{{ t("Email address") }}:</strong> {{ tutor.emailAddress }}</p>
+        <p><strong>{{ t("Birthdate") }}:</strong> {{ tutor.birthdate | date:'longDate' }}</p>
+        <p><strong>{{ t("Gender") }}:</strong> {{ tutor.gender }}</p>
+        <p><strong>{{ t("National Identification Card (NIC)") }}:</strong> {{ tutor.nic }}</p>
+      </div>
+  
+      <div style="margin-bottom: 20px;">
+        <h3 style="color: #d32f2f; font-size: 20px; margin-bottom: 10px;">{{ t("Contact Information") }}</h3>
+        <p><strong>{{ t("Contact number") }}:</strong> {{ tutor.contactNumber }}</p>
+        <p><strong>{{ t("Address") }}:</strong> {{ tutor.address }}</p>
+        <p><strong>{{ t("City") }}:</strong> {{ tutor.city }}</p>
+        <p><strong>{{ t("State") }}:</strong> {{ tutor.state }}</p>
+        <p><strong>{{ t("Country") }}:</strong> {{ tutor.country }}</p>
+      </div>
+  
+      <div style="margin-bottom: 20px;">
+        <h3 style="color: #f57c00; font-size: 20px; margin-bottom: 10px;">{{ t("Account Information") }}</h3>
+        <p><strong>{{ t("Status") }}:</strong> {{ tutor.status ? t("Enabled") : t("Disabled") }}</p>
+        <p><strong>{{ t("Is Verified") }}:</strong> {{ tutor.isVerified ? t("Yes") : t("No") }}</p>
+        <p><strong>{{ t("Is Premium") }}:</strong> {{ tutor.isPremium ? t("Yes") : t("No") }}</p>
+        <p><strong>{{ t("Premium Expiry") }}:</strong> {{ tutor.premiumExpiry | date:'longDate' }}</p>
+        <p><strong>{{ t("Last Connection") }}:</strong> {{ tutor.lastConnection | date:'longDate' }}</p>
+        <p><strong>{{ t("Creation Date") }}:</strong> {{ tutor.creationDate | date:'longDate' }}</p>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <h3 style="color: #f57c00; font-size: 20px; margin-bottom: 10px;">{{ t("Tutor Information") }}</h3>
+        <p><strong>{{ t("Is Business Account") }}:</strong> {{ tutor.isBusiness ? t("Yes") : t("No") }}</p>
+        <p><strong>{{ t("Qualifications") }}:</strong> {{ tutor.qualifications }}</p>
+        <p><strong>{{ t("Speciality") }}:</strong> {{ tutor.speciality }}</p>
+        <p><strong>{{ t("Teaching Experience") }}:</strong> {{ tutor.teachingExperience }}</p>
+      </div>
+  
+      <div>
+        <h3 style="color: #0288d1; font-size: 20px; margin-bottom: 10px;">{{ t("Security") }}</h3>
+        <p><strong>{{ t("Facebook ID") }}:</strong> {{ tutor.facebookId }} [Protected]</p>
+        <p><strong>{{ t("Google ID") }}:</strong> {{ tutor.googleId }} [Protected]</p>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-raised-button color="primary" [mat-dialog-close]="true">{{ t("Close") }}</button>
+    </mat-dialog-actions>
+  </ng-container>
+  

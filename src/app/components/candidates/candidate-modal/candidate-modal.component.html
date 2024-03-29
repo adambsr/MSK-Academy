@@ -1,0 +1,51 @@
+<ng-container *transloco="let t">
+    <h2 mat-dialog-title style="color: #1565c0; font-size: 24px; text-align: center;">{{ t("User Details") }}</h2>
+    <mat-dialog-content style="padding: 20px;">
+      <div style="margin-bottom: 20px;">
+        <h3 style="color: #2e7d32; font-size: 20px; margin-bottom: 10px;">{{ t("Personal Information") }}</h3>
+        <p><strong>{{ t("First name") }}:</strong> {{ candidate.firstName }}</p>
+        <p><strong>{{ t("Last name") }}:</strong> {{ candidate.lastName }}</p>
+        <p><strong>{{ t("Username") }}:</strong> {{ candidate.userename }}</p>
+        <p><strong>{{ t("Email address") }}:</strong> {{ candidate.emailAddress }}</p>
+        <p><strong>{{ t("Birthdate") }}:</strong> {{ candidate.birthdate | date:'longDate' }}</p>
+        <p><strong>{{ t("Gender") }}:</strong> {{ candidate.gender }}</p>
+        <p><strong>{{ t("National Identification Card (NIC)") }}:</strong> {{ candidate.nic }}</p>
+      </div>
+  
+      <div style="margin-bottom: 20px;">
+        <h3 style="color: #d32f2f; font-size: 20px; margin-bottom: 10px;">{{ t("Contact Information") }}</h3>
+        <p><strong>{{ t("Contact number") }}:</strong> {{ candidate.contactNumber }}</p>
+        <p><strong>{{ t("Address") }}:</strong> {{ candidate.address }}</p>
+        <p><strong>{{ t("City") }}:</strong> {{ candidate.city }}</p>
+        <p><strong>{{ t("State") }}:</strong> {{ candidate.state }}</p>
+        <p><strong>{{ t("Country") }}:</strong> {{ candidate.country }}</p>
+      </div>
+  
+      <div style="margin-bottom: 20px;">
+        <h3 style="color: #f57c00; font-size: 20px; margin-bottom: 10px;">{{ t("Account Information") }}</h3>
+        <p><strong>{{ t("Role") }}:</strong> {{ candidate.role }}</p>
+        <p><strong>{{ t("Status") }}:</strong> {{ candidate.status ? t("Enabled") : t("Disabled") }}</p>
+        <p><strong>{{ t("Is Verified") }}:</strong> {{ candidate.isVerified ? t("Yes") : t("No") }}</p>
+        <p><strong>{{ t("Is Premium") }}:</strong> {{ candidate.isPremium ? t("Yes") : t("No") }}</p>
+        <p><strong>{{ t("Premium Expiry") }}:</strong> {{ candidate.premiumExpiry | date:'longDate' }}</p>
+        <p><strong>{{ t("Last Connection") }}:</strong> {{ candidate.lastConnection | date:'longDate' }}</p>
+        <p><strong>{{ t("Creation Date") }}:</strong> {{ candidate.creationDate | date:'longDate' }}</p>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <h3 style="color: #ea00ff; font-size: 20px; margin-bottom: 10px;">{{ t("Candidate Information") }}</h3>
+        <p><strong>{{ t("Field of study") }}:</strong> {{ candidate.fieldOfStudy }}</p>
+        <p><strong>{{ t("Parent") }}:</strong> {{ candidate.parent}}</p>
+      </div>
+  
+      <div>
+        <h3 style="color: #0288d1; font-size: 20px; margin-bottom: 10px;">{{ t("Security") }}</h3>
+        <p><strong>{{ t("Facebook ID") }}:</strong> {{ candidate.facebookId }} [Protected]</p>
+        <p><strong>{{ t("Google ID") }}:</strong> {{ candidate.googleId }} [Protected]</p>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-raised-button color="primary" [mat-dialog-close]="true">{{ t("Close") }}</button>
+    </mat-dialog-actions>
+  </ng-container>
+  

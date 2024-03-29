@@ -1,0 +1,44 @@
+<ng-container *transloco="let t">
+  <h2 mat-dialog-title style="color: #1565c0; font-size: 24px; text-align: center;">{{ t("User Details") }}</h2>
+  <mat-dialog-content style="padding: 20px;">
+    <div style="margin-bottom: 20px;">
+      <h3 style="color: #2e7d32; font-size: 20px; margin-bottom: 10px;">{{ t("Personal Information") }}</h3>
+      <p><strong>{{ t("First name") }}:</strong> {{ user.firstName }}</p>
+      <p><strong>{{ t("Last name") }}:</strong> {{ user.lastName }}</p>
+      <p><strong>{{ t("Username") }}:</strong> {{ user.username }}</p>
+      <p><strong>{{ t("Email address") }}:</strong> {{ user.emailAddress }}</p>
+      <p><strong>{{ t("Birthdate") }}:</strong> {{ user.birthdate | date:'longDate' }}</p>
+      <p><strong>{{ t("Gender") }}:</strong> {{ user.gender }}</p>
+      <p><strong>{{ t("National Identification Card (NIC)") }}:</strong> {{ user.nic }}</p>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <h3 style="color: #d32f2f; font-size: 20px; margin-bottom: 10px;">{{ t("Contact Information") }}</h3>
+      <p><strong>{{ t("Contact number") }}:</strong> {{ user.contactNumber }}</p>
+      <p><strong>{{ t("Address") }}:</strong> {{ user.address }}</p>
+      <p><strong>{{ t("City") }}:</strong> {{ user.city }}</p>
+      <p><strong>{{ t("State") }}:</strong> {{ user.state }}</p>
+      <p><strong>{{ t("Country") }}:</strong> {{ user.country }}</p>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <h3 style="color: #f57c00; font-size: 20px; margin-bottom: 10px;">{{ t("Account Information") }}</h3>
+      <p><strong>{{ t("Role") }}:</strong> {{ user.role }}</p>
+      <p><strong>{{ t("Status") }}:</strong> {{ user.status ? t("Enabled") : t("Disabled") }}</p>
+      <p><strong>{{ t("Is Verified") }}:</strong> {{ user.isVerified ? t("Yes") : t("No") }}</p>
+      <p><strong>{{ t("Is Premium") }}:</strong> {{ user.isPremium ? t("Yes") : t("No") }}</p>
+      <p><strong>{{ t("Premium Expiry") }}:</strong> {{ user.premiumExpiry | date:'longDate' }}</p>
+      <p><strong>{{ t("Last Connection") }}:</strong> {{ user.lastConnection | date:'longDate' }}</p>
+      <p><strong>{{ t("Creation Date") }}:</strong> {{ user.creationDate | date:'longDate' }}</p>
+    </div>
+
+    <div>
+      <h3 style="color: #0288d1; font-size: 20px; margin-bottom: 10px;">{{ t("Security") }}</h3>
+      <p><strong>{{ t("Facebook ID") }}:</strong> {{ user.facebookId }} [Protected]</p>
+      <p><strong>{{ t("Google ID") }}:</strong> {{ user.googleId }} [Protected]</p>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">{{ t("Close") }}</button>
+  </mat-dialog-actions>
+</ng-container>
