@@ -12,7 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { NgClass } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-addestablishment',
@@ -34,6 +34,7 @@ import { NgClass } from '@angular/common';
         MatChipsModule,
         MatDatepickerModule,
         TranslocoModule,
+        CommonModule
     ],
 })
 export class AddestablishmentComponent {
@@ -48,7 +49,25 @@ export class AddestablishmentComponent {
         Validators.required,
         Validators.email,
     ]);
-    phoneNumberFormControl = new FormControl('', [Validators.required]);
+
+    ContactNameFormControl = new FormControl('', [Validators.required]);
+
+    ContactLastNameFormControl = new FormControl('', [Validators.required]);
+
+    EstablishmentNameFormControl = new FormControl('', [Validators.required]);
+
+    EstablishmentTypeFormControl = new FormControl('', [Validators.required]);
+
+    BirthdateFormControl = new FormControl('', [Validators.required]);
+
+    AddressFormControl = new FormControl('', [Validators.required]);
+
+    contactNumberFormControl = new FormControl('', [
+        Validators.required,
+        Validators.pattern('[0-9]*'), // Only allow numeric characters
+        Validators.minLength(8), // Assuming a minimum length of 8 characters
+        Validators.maxLength(8), // Assuming a maximum length of 9 characters
+    ]);
 
     formFieldHelpers: string[] = [''];
     fixedSubscriptInput: FormControl = new FormControl('', [

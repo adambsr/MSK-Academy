@@ -1,0 +1,12 @@
+.cards-container {
+    display: flex; /* Establishes a flex container */
+    flex-direction: row; /* Aligns children horizontally */
+    justify-content: center; /* Centers children horizontally in the container */
+    align-items: stretch; /* Stretches children to fill the container height */
+    gap: 30px; /* Adds space between each card */
+}
+
+.fuse-card {
+    flex: 0 1 300px; /* Allows cards to grow and shrink but not exceed 300px */
+    margin: 10px; /* Optional: Adds some margin around each card */
+}

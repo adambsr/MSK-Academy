@@ -58,7 +58,18 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <mat-form-field>
                         <mat-label>{{ t("Establishment name") }}</mat-label>
-                        <input matInput />
+                        <input
+                            matInput
+                            required
+                            [formControl]="EstablishmentNameFormControl"
+                        />
+                        <mat-error
+                            *ngIf="
+                                EstablishmentNameFormControl.errors?.required
+                            "
+                        >
+                            {{ t("This field is required") }}
+                        </mat-error>
                         <mat-icon
                             matSuffix
                             svgIcon="heroicons_solid:user-circle"
@@ -68,7 +79,16 @@
 
                     <mat-form-field>
                         <mat-label>{{ t("Establishment type") }}</mat-label>
-                        <mat-select>
+                        <mat-select
+                            required
+                            placeholder="{{ t('Choose...') }}"
+                            [(ngModel)]="selectedType"
+                            #typeSelect="ngModel"
+                            name="type"
+                        >
+                            <mat-option value="training center">{{
+                                t("Training Center")
+                            }}</mat-option>
                             <mat-option value="school">{{
                                 t("School")
                             }}</mat-option>
@@ -79,6 +99,9 @@
                                 t("University")
                             }}</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="typeSelect.errors?.required">
+                            {{ t("Please select a type") }}
+                        </mat-error>
                     </mat-form-field>
                 </div>
 
@@ -86,7 +109,16 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <mat-form-field>
                         <mat-label>{{ t("Contact person name") }}</mat-label>
-                        <input matInput />
+                        <input
+                            matInput
+                            required
+                            [formControl]="ContactNameFormControl"
+                        />
+                        <mat-error
+                            *ngIf="ContactNameFormControl.errors?.required"
+                        >
+                            {{ t("This field is required") }}
+                        </mat-error>
                         <mat-icon
                             matSuffix
                             svgIcon="heroicons_solid:user-circle"
@@ -95,8 +127,19 @@
                     </mat-form-field>
 
                     <mat-form-field>
-                        <mat-label>{{ t("Contact person title") }}</mat-label>
-                        <input matInput />
+                        <mat-label>{{
+                            t("Contact person last name")
+                        }}</mat-label>
+                        <input
+                            matInput
+                            required
+                            [formControl]="ContactLastNameFormControl"
+                        />
+                        <mat-error
+                            *ngIf="ContactLastNameFormControl.errors?.required"
+                        >
+                            {{ t("This field is required") }}
+                        </mat-error>
                         <mat-icon
                             matSuffix
                             svgIcon="heroicons_solid:user-circle"
@@ -107,24 +150,65 @@
 
                 <!-- Email Address & Contact Number -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Email Address -->
                     <mat-form-field>
                         <mat-label>{{ t("Email address") }}</mat-label>
                         <input
                             type="email"
                             matInput
-                            placeholder="Ex. pat@example.com"
+                            required
+                            placeholder="pat@example.com"
+                            [formControl]="emailFormControl"
                         />
+                        <mat-error *ngIf="emailFormControl.errors?.required">
+                            {{ t("This field is required") }}
+                        </mat-error>
+                        <mat-error *ngIf="emailFormControl.errors?.email">
+                            {{ t("Please enter a valid email address") }}
+                        </mat-error>
                         <mat-icon
                             class="icon-size-5"
                             matSuffix
-                            [svgIcon]="'heroicons_solid:mail'"
+                            [svgIcon]="'heroicons_solid:envelope'"
                         ></mat-icon>
                     </mat-form-field>
-
+                    <!-- Contact Number -->
                     <mat-form-field>
                         <mat-label>{{ t("Contact number") }}</mat-label>
                         <span matTextPrefix>+216 &nbsp;</span>
-                        <input type="tel" matInput placeholder="55-555-123" />
+                        <input
+                            type="tel"
+                            matInput
+                            placeholder="55-555-123"
+                            [formControl]="contactNumberFormControl"
+                            required
+                        />
+                        <mat-error
+                            *ngIf="contactNumberFormControl.errors?.required"
+                        >
+                            {{ t("This field is required") }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="contactNumberFormControl.errors?.pattern"
+                        >
+                            {{ t("Please enter a valid contact number") }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                contactNumberFormControl.errors?.minlength &&
+                                !contactNumberFormControl.errors?.pattern
+                            "
+                        >
+                            {{ t("Contact number is too short") }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                contactNumberFormControl.errors?.maxlength &&
+                                !contactNumberFormControl.errors?.pattern
+                            "
+                        >
+                            {{ t("Contact number is too long") }}
+                        </mat-error>
                         <mat-icon
                             class="icon-size-5"
                             matSuffix
@@ -133,17 +217,30 @@
                     </mat-form-field>
                 </div>
 
-                <!-- Establishment's Address -->
-                <div class="grid grid-cols-1">
+                <!-- Location & Photo -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Location -->
                     <mat-form-field>
-                        <mat-label>{{ t("Address") }}</mat-label>
-                        <textarea matInput></textarea>
+                        <mat-label>{{ t("Location") }}</mat-label>
+                        <mat-select
+                            required
+                            placeholder="{{ t('Choose...') }}"
+                            [(ngModel)]="selectedLocation"
+                            #locationSelect="ngModel"
+                            name="location"
+                        >
+                            <mat-option value=""></mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="locationSelect.errors?.required">
+                            {{ t("Please select a location") }}
+                        </mat-error>
                         <mat-icon
                             class="icon-size-5"
                             matSuffix
-                            [svgIcon]="'heroicons_solid:home'"
+                            [svgIcon]="'heroicons_solid:map-pin'"
                         ></mat-icon>
                     </mat-form-field>
+                    <!-- Establishment photo -->
                 </div>
 
                 <!-- Submit and Reset Buttons -->

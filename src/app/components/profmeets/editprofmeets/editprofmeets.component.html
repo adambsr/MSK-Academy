@@ -1,0 +1,93 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header -->
+    <div
+      class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+      <div class="flex-1 min-w-0">
+        <!-- Title -->
+        <div class="mt-2">
+          <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+            *transloco="let t">
+            {{ t("Edit meet") }}
+          </h2>
+        </div>
+      </div>
+    </div>
+    <style>
+      .button-container {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+    </style>
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+      <div class="max-w-8xl">
+  
+        <h2 class="text-2xl md:text-3xl font-extrabold leading-7 sm:leading-10 truncate" *transloco="let t">
+          {{ t("Please fill the form:") }}
+        </h2>
+  
+        <form class="flex flex-col mt-8 p-8 pb-4 bg-card rounded-2xl shadow overflow-hidden" *transloco="let t"
+          [formGroup]="meetForm" #userNgForm="ngForm">
+  
+          <!-- Title & Description -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Title -->
+            <mat-form-field [ngClass]="formFieldHelpers">
+              <mat-label>{{ t('Title')}}</mat-label>
+              <input matInput type="text" [formControlName]="'TitleMeet'">
+              <mat-icon matSuffix svgIcon="mat_solid:title"></mat-icon>
+            </mat-form-field>
+            <!-- Description -->
+            <mat-form-field [ngClass]="formFieldHelpers">
+              <mat-label>{{ t('Description') }}</mat-label>
+              <input matInput [formControlName]="'DescriptionMeets'">
+              <mat-icon matSuffix svgIcon="mat_solid:description"></mat-icon>
+            </mat-form-field>
+          </div>
+  
+          <!-- Date & Link -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Date -->
+            <mat-form-field [ngClass]="formFieldHelpers">
+              <mat-label>{{ t("Date") }}</mat-label>
+              <input matInput [matDatepicker]="picker" [formControlName]="'DateMeet'" />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <!-- Link -->
+            <mat-form-field [ngClass]="formFieldHelpers">
+              <mat-label>{{ t('Link')}}</mat-label>
+              <input matInput type="text" [formControlName]="'LinkMeet'">
+              <mat-icon matSuffix svgIcon="heroicons_outline:link"></mat-icon>
+            </mat-form-field>
+          </div>
+  
+          <!-- Date & Link -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Course -->
+            <mat-form-field [ngClass]="formFieldHelpers">
+              <mat-label>{{ t("Course") }}</mat-label>
+              <mat-select required placeholder="{{ t('Choose...') }}" [formControlName]="'IdCourse'">
+                <mat-option *ngFor="let item of Courses" [value]="item.IdCourse">
+                  {{ item.TitleCourse }}
+                </mat-option>
+              </mat-select>
+              <mat-icon matSuffix svgIcon="heroicons_outline:document-text"></mat-icon>
+            </mat-form-field>
+          </div>
+  
+          <!-- Submit and Reset Buttons -->
+          <div class="button-container">
+            <button mat-flat-button type="reset" class="reset-button" color="warn">
+              {{ t("Reset") }}
+            </button>
+            <button mat-flat-button type="submit" class="submit-button" color="primary" (click)="submit()"
+              routerlink="/profmeets/view/1">
+              {{ t('Add meet')}}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

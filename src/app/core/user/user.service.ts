@@ -6,10 +6,6 @@ import { map, Observable, ReplaySubject, tap } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class UserService
 {
-    getUserById // Store the value
-      (userId: number) {
-        throw new Error('Method not implemented.');
-    }
     private _httpClient = inject(HttpClient);
     private _user: ReplaySubject<User> = new ReplaySubject<User>(1);
 

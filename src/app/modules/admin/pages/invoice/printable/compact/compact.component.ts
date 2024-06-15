@@ -11,10 +11,13 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 })
 export class CompactComponent
 {
+    INVOICE : string ="Invoice";
     /**
      * Constructor
      */
     constructor()
     {
     }
+
+    
 }

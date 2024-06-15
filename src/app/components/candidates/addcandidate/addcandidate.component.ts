@@ -10,7 +10,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatOptionModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -37,6 +37,7 @@ import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
         MatDatepickerModule,
         TranslocoModule,
         CommonModule,
+        MatNativeDateModule
     ],
     templateUrl: './addcandidate.component.html',
     styleUrl: './addcandidate.component.scss',
@@ -50,6 +51,11 @@ export class AddcandidateComponent {
         // });
     }
 
+    hide = true; // Initial state of the password input is hidden
+    toggleHide(): void {
+        this.hide = !this.hide;
+    }
+
     emailFormControl = new FormControl('', [
         Validators.required,
         Validators.email,
@@ -61,6 +67,8 @@ export class AddcandidateComponent {
 
     UsernameFormControl = new FormControl('', [Validators.required]);
 
+    PasswordFormControl = new FormControl('', [Validators.required]);
+
     BirthdateFormControl = new FormControl('', [Validators.required]);
 
     AddressFormControl = new FormControl('', [Validators.required]);
@@ -68,6 +76,13 @@ export class AddcandidateComponent {
     fieldOfStudyFormControl = new FormControl('', [Validators.required]);
 
     contactNumberFormControl = new FormControl('', [
+        Validators.required,
+        Validators.pattern('[0-9]*'), // Only allow numeric characters
+        Validators.minLength(8), // Assuming a minimum length of 8 characters
+        Validators.maxLength(8), // Assuming a maximum length of 9 characters
+    ]);
+
+    NICFormControl = new FormControl('', [
         Validators.required,
         Validators.pattern('[0-9]*'), // Only allow numeric characters
         Validators.minLength(8), // Assuming a minimum length of 8 characters

@@ -1,1 +1,100 @@
-<p>faq works!</p>
+<div class="flex flex-col flex-auto min-w-0 bg-gray-100">
+    <!-- Header -->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent"
+    >
+        <div class="flex-1 min-w-0">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a
+                        mat-button
+                        [routerLink]="['/home']"
+                        [color]="'primary'"
+                        *transloco="let t"
+                    >
+                        <mat-icon
+                            [svgIcon]="'heroicons_outline:arrow-long-left'"
+                        ></mat-icon>
+                        <span class="ml-2">{{ t("Back to Home") }}</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2
+                    class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+                    *transloco="let t"
+                >
+                    {{ t("FAQs") }}
+                </h2>
+            </div>
+        </div>
+    </div>
+    <!-- Main -->
+    <div class="flex flex-col items-center p-6 sm:p-10">
+        <div class="flex flex-col w-full max-w-4xl">
+            <div *transloco="let t" class="mt-2 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight text-center mb-2">
+                {{t("Frequently Asked Questions")}}
+            </div>
+            <ng-container *transloco="let t">
+                <div class="mt-12 sm:mt-16 text-3xl font-bold leading-tight tracking-tight">{{t("Most Asked")}}</div>
+                <mat-accordion class="max-w-4xl mt-8">
+                    <ng-container>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header [collapsedHeight]="'56px'">
+                                <mat-panel-title class="font-medium leading-tight">{{t("Do you offer certificates upon completion of courses?")}}</mat-panel-title>
+                            </mat-expansion-panel-header>
+                            {{t("Yes, we offer personalised certificates for each candidate who has completed a full course.")}}
+                        </mat-expansion-panel>
+    
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header [collapsedHeight]="'56px'">
+                                <mat-panel-title class="font-medium leading-tight">{{t("What makes this site so special?")}}</mat-panel-title>
+                            </mat-expansion-panel-header>
+                            {{t("The motivating gamification, progress tracking and candidate-tutor communication is what makes us stand out.")}}
+                        </mat-expansion-panel>
+                    </ng-container>
+                </mat-accordion>
+    
+                <div class="mt-12 sm:mt-16 text-3xl font-bold leading-tight tracking-tight">{{t("General Inquiries")}}</div>
+                <mat-accordion class="max-w-4xl mt-8">
+                    <ng-container>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header [collapsedHeight]="'56px'">
+                                <mat-panel-title class="font-medium leading-tight">{{t("How frequently are new courses added to the platform?")}}</mat-panel-title>
+                            </mat-expansion-panel-header>
+                            {{t("New courses are added very frequently after being verified and reviewed.")}}
+                        </mat-expansion-panel>
+    
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header [collapsedHeight]="'56px'">
+                                <mat-panel-title class="font-medium leading-tight">{{t("What are the benefits of a premium account?")}}</mat-panel-title>
+                            </mat-expansion-panel-header>
+                            {{t("You will enjoy the privileges of accessing course material on multiple devices.")}}
+                        </mat-expansion-panel>
+                    </ng-container>
+                </mat-accordion>
+    
+                <div class="mt-12 sm:mt-16 text-3xl font-bold leading-tight tracking-tight">{{t("Payment")}}</div>
+                <mat-accordion class="max-w-4xl mt-8">
+                    <ng-container>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header [collapsedHeight]="'56px'">
+                                <mat-panel-title class="font-medium leading-tight">{{t("What payment methods are accepted?")}}</mat-panel-title>
+                            </mat-expansion-panel-header>
+                            {{t("We accept any visa or edinar cards.")}}
+                        </mat-expansion-panel>
+    
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header [collapsedHeight]="'56px'">
+                                <mat-panel-title class="font-medium leading-tight">{{t("Are there any discounts or promotions available for course purchases?")}}</mat-panel-title>
+                            </mat-expansion-panel-header>
+                            {{t("Yes. On special occasions and holidays, course prices will be discounted.")}}
+                        </mat-expansion-panel>
+                    </ng-container>
+                </mat-accordion>
+            </ng-container>
+        </div>
+    </div>
+</div>

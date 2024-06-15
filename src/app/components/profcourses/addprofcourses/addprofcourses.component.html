@@ -1,0 +1,99 @@
+<div class="flex flex-col flex-auto min-w-0">
+  <!-- Header -->
+  <div
+    class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+    <div class="flex-1 min-w-0">
+      <!-- Title -->
+      <div class="mt-2">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+          *transloco="let t">
+          {{ t("Add course") }}
+        </h2>
+      </div>
+    </div>
+  </div>
+  <style>
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+  </style>
+  <!-- Main -->
+  <div class="flex-auto p-6 sm:p-10">
+    <div class="max-w-8xl">
+
+      <h2 class="text-2xl md:text-3xl font-extrabold leading-7 sm:leading-10 truncate" *transloco="let t">
+        {{ t("Please fill the form:") }}
+      </h2>
+
+      <form class="flex flex-col mt-8 p-8 pb-4 bg-card rounded-2xl shadow overflow-hidden" *transloco="let t"
+        [formGroup]="courseForm" #userNgForm="ngForm">
+
+        <!-- Title & Subtitle -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <!-- Title -->
+          <mat-form-field [ngClass]="formFieldHelpers">
+            <mat-label>{{ t('Title')}}</mat-label>
+            <input matInput type="text" [formControlName]="'TitleCourse'">
+            <mat-icon matSuffix svgIcon="mat_solid:title"></mat-icon>
+          </mat-form-field>
+          <!-- Subtitle -->
+          <mat-form-field [ngClass]="formFieldHelpers">
+            <mat-label>{{ t('Subtitle')}}</mat-label>
+            <input matInput type="text" [formControlName]="'Subtitle'">
+            <mat-icon matSuffix svgIcon="mat_solid:subtitles"></mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Category & Duration-->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <!-- Category -->
+          <mat-form-field [ngClass]="formFieldHelpers">
+            <mat-label>{{ t("Category") }}</mat-label>
+            <mat-select required placeholder="{{ t('Choose...') }}" [formControlName]="'IdCateg'">
+              <mat-option *ngFor="let item of Categories" [value]="item.IdCateg">{{ item.TitleEn}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix svgIcon="heroicons_outline:square-3-stack-3d"></mat-icon>
+          </mat-form-field>
+          <!-- Duration -->
+          <mat-form-field [ngClass]="formFieldHelpers">
+            <mat-label>{{ t('Duration') }}</mat-label>
+            <input matInput type="number" [formControlName]="'DurationHour'">
+            <mat-icon matSuffix svgIcon="mat_solid:access_time"></mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Description -->
+        <mat-form-field [ngClass]="formFieldHelpers">
+          <mat-label>{{ t('Description') }}</mat-label>
+          <textarea matInput [formControlName]="'Description'"></textarea>
+          <mat-icon matSuffix svgIcon="mat_solid:description"></mat-icon>
+        </mat-form-field>
+
+        <!-- Upload Photo -->
+        <div class="form-group margin-bottom10">
+          <div class="col-md-12">
+            <div class="">
+              <mat-label>{{ t("Upload photo") }}</mat-label>
+              <input type="file" class="form-control height50 txt-22 btnUploadImg" (change)="uploadPhoto($event)"
+                style="display: block; margin-top: 5px;" />
+            </div>
+            <!-- Uploaded Photo Preview -->
+            <img src="{{ photo }}" class="w-64 ..." height="150px" width="200px" />
+          </div>
+        </div>
+
+        <!-- Submit and Reset Buttons -->
+        <div class="button-container">
+          <button mat-flat-button type="reset" class="reset-button" color="warn">
+            {{ t("Reset") }}
+          </button>
+          <button mat-flat-button type="submit" class="submit-button" color="primary" (click)="submit()" routerlink="profcourses/view/1"> 
+            {{ t('Add course')}}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

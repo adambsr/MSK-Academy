@@ -20,6 +20,14 @@ export class LanguagesComponent implements OnInit, OnDestroy
     availableLangs: AvailableLangs;
     activeLang: string;
     flagCodes: any;
+    // TODO : Langue ADD Flags
+     myLang: AvailableLangs = [
+        { id: 'en',  label: 'English' },
+        { id: 'fr',  label: 'Français' },
+        { id: 'ar',  label: 'Arabic' },
+        { id: 'tr',  label: 'Turc' },
+        // other LangDefinition objects...
+      ];
 
     /**
      * Constructor
@@ -41,9 +49,10 @@ export class LanguagesComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
+        
         // Get the available languages from transloco
         this.availableLangs = this._translocoService.getAvailableLangs();
-
+         
         // Subscribe to language changes
         this._translocoService.langChanges$.subscribe((activeLang) =>
         {
@@ -54,6 +63,7 @@ export class LanguagesComponent implements OnInit, OnDestroy
             this._updateNavigation(activeLang);
         });
 
+        // TODO : Langue ADD Flags
         // Set the country iso codes for languages for flags
         this.flagCodes = {
             'en': 'us',
@@ -81,8 +91,10 @@ export class LanguagesComponent implements OnInit, OnDestroy
      */
     setActiveLang(lang: string): void
     {
+   
         // Set the active lang
         this._translocoService.setActiveLang(lang);
+        //alert(this._translocoService.getActiveLang());
     }
 
     /**

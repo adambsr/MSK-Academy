@@ -1,0 +1,147 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header -->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500" *transloco="let t">{{ t("Courses interface") }}</a>
+                </div>
+                <div class="flex items-center ml-1 whitespace-nowrap">
+                    <mat-icon class="icon-size-5 text-secondary">chevron_right</mat-icon>
+                    <a class="ml-1 text-primary-500" *transloco="let t">{{
+                        t("Tables")
+                        }}</a>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+                    *transloco="let t">
+                    {{ t("Meets table") }}
+                </h2>
+            </div>
+        </div>
+    </div>
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+        <!-- Autocomplete Search Form Field -->
+        <mat-form-field *transloco="let t">
+            <mat-label>{{ t("Search") }}</mat-label>
+            <input type="text" placeholder="Ex. Ahmed" (blur)="applyFilter($event)" matInput [formControl]="myControl"
+                [matAutocomplete]="auto" #input />
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                @for (option of filteredOptions | async; track option) {
+                <mat-option [value]="option">{{ option }}</mat-option>
+                }
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <!-- Add category button -->
+        <button *transloco="let t" mat-raised-button color="primary" (click)="openAddMeetPage()" class="ml-4">
+            <mat-icon>add</mat-icon>
+            <span>{{ t("Add") }}</span>
+        </button>
+        <div class="mat-elevation-z8 max-w-8xl bg-card rounded-2xl shadow overflow-hidden">
+            <table mat-table [dataSource]="dataSource" matSort class="table-fixed">
+                <!-- Id Column -->
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/12">
+                        Id.
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/12">
+                        {{ element.Id }}
+                    </td>
+                </ng-container>
+
+                <!-- TitleEn Column -->
+                <ng-container matColumnDef="TitleMeet" *transloco="let t">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
+                        {{ t("Titre") }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/6">
+                        {{ element.TitleMeet}}
+                    </td>
+                </ng-container>
+
+                <!-- TitleFr Column -->
+                <ng-container matColumnDef="LinkMeet" *transloco="let t">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
+                        {{ t("Lien") }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/6">
+                        {{ reconvertword(element.LinkMeet) }}
+                    </td>
+                </ng-container>        
+                
+                <!-- TitleAr Column -->
+                <ng-container matColumnDef="DateMeet" *transloco="let t">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
+                        {{ t("Date") }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/6">
+                        {{ element.DateMeet}}
+                    </td>
+                </ng-container>                
+
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions" *transloco="let t">
+                    <th mat-header-cell *matHeaderCellDef class="w-1/6">
+                        {{ t("Actions") }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/6">
+                        <!-- Delete Button with Confirmation -->
+                        <button mat-raised-button color="warn" (click)="openConfirmationDialog(element)"
+                            style="margin-right: 10px">
+                            <mat-icon svgIcon="heroicons_outline:trash"></mat-icon>
+                        </button>
+                        <!-- View Button -->
+                        <!-- <button mat-raised-button color="mat-blue-grey" (click)="openCategoryModal(element)"
+                            style="margin-right: 10px">
+                            <mat-icon svgIcon="heroicons_outline:information-circle"></mat-icon>
+                        </button> -->
+                        <!-- Edit Button -->
+                        <a mat-raised-button color="primary" (click)="openEditCoursePage(element)">
+                            <mat-icon svgIcon="heroicons_outline:pencil-square"></mat-icon>
+                        </a>
+                    </td>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="status" *transloco="let t">
+                    <th mat-header-cell *matHeaderCellDef class="w-1/6">
+                        {{ t("Status") }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/6">
+                        <!-- <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                            <mat-button-toggle value="bold">{{
+                                t("Enabled")
+                                }}</mat-button-toggle>
+                            <mat-button-toggle value="italic">{{
+                                t("Disabled")
+                                }}</mat-button-toggle>
+                        </mat-button-toggle-group> -->
+                        <!-- {{ t("Enable / Disable") }} -->
+                        <mat-slide-toggle  labelPosition = "before" *ngIf="element.Active==true" [checked]="true"  (change)="changeActive(element.IdCateg,element.Active)" > {{ t("Enable") }} </mat-slide-toggle>  
+                        <mat-slide-toggle  labelPosition = "before" *ngIf="element.Active==null || element.Active<1" [checked]="false"  (change)="changeActive(element.IdCateg,element.Active)" >{{ t("Disable") }} </mat-slide-toggle>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+                <!-- Row shown when there is no matching data in the search form. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4" *transloco="let t">
+                        {{ t("This Course doesn't exist.") }}
+                    </td>
+                </tr>
+            </table>
+            <div class="flex justify-end">
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                    aria-label="Select page of users"></mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

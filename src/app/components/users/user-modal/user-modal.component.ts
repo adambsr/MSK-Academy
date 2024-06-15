@@ -6,7 +6,7 @@ import {
     MatDialogModule,
 } from '@angular/material/dialog';
 import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
-import { UserElement } from '../viewuser/viewuser.component';
+import { Users } from 'app/Models/users';
 
 @Component({
     selector: 'app-user-modal',
@@ -16,7 +16,7 @@ import { UserElement } from '../viewuser/viewuser.component';
     styleUrls: ['./user-modal.component.scss'],
 })
 export class UserModalComponent implements OnInit {
-    @Input() user: UserElement;
+    @Input() user: Users;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -26,5 +26,6 @@ export class UserModalComponent implements OnInit {
 
     ngOnInit(): void {
         this.user = this.data.user;
+        console.log(this.data);
     }
 }

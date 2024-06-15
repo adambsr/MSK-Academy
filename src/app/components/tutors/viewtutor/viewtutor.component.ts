@@ -31,6 +31,8 @@ import { Router } from '@angular/router';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { Observable, startWith, map } from 'rxjs';
 import { TutorModalComponent } from '../tutor-modal/tutor-modal.component';
+import { UsersService } from 'app/Services/users.service';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
     selector: 'app-viewtutor',
@@ -58,6 +60,7 @@ import { TutorModalComponent } from '../tutor-modal/tutor-modal.component';
         TranslocoModule,
         MatRippleModule,
         TutorModalComponent,
+        MatSlideToggleModule,
     ],
     templateUrl: './viewtutor.component.html',
     styleUrl: './viewtutor.component.scss',
@@ -66,10 +69,10 @@ export class ViewtutorComponent implements AfterViewInit, OnInit {
     configForm: UntypedFormGroup;
 
     displayedColumns: string[] = [
-        'position',
-        //'firstName',
-        //'lastName',
-        'username',
+        'ID',
+        'firstName',
+        'lastName',
+        //'username',
         //'password',
         //'nic',
         //'contactNumber',
@@ -96,14 +99,17 @@ export class ViewtutorComponent implements AfterViewInit, OnInit {
         'status',
     ];
 
-    dataSource = new MatTableDataSource<TutorElement>(ELEMENT_DATA);
+    //dataSource = new MatTableDataSource<TutorElement>(ELEMENT_DATA);
+    dataSource = new MatTableDataSource<TutorElement>();
+    isEmptyData: boolean= true;
 
     constructor(
         private router: Router,
         private dialog: MatDialog,
         private translocoService: TranslocoService,
         private _formBuilder: UntypedFormBuilder,
-        private _fuseConfirmationService: FuseConfirmationService
+        private _fuseConfirmationService: FuseConfirmationService,
+        private userService : UsersService,
     ) {}
 
     openTutorModal(tutor: TutorElement): void {
@@ -158,6 +164,73 @@ export class ViewtutorComponent implements AfterViewInit, OnInit {
             map((value) => (value ? this._filter(value) : []))
         );
         console.log(this.filteredOptions);
+
+       this.getTutors();
+    }
+
+
+    getTutors(){
+        this.userService.getTutors().subscribe((data : any) =>{
+            //this.languages=data;
+            console.log(data);
+            if(data!="Empty" && data!=""){
+              this.dataSource = new MatTableDataSource(data);
+              this.dataSource.data = data;
+              this.isEmptyData = false;
+            }else{
+               this.isEmptyData = true;
+            }
+            //this.dataSource.paginator = this.paginator;
+            //this.dataSource.sort = this.sort;
+       
+          }),(error: any) => {
+            console.log(error);
+            if(error.status == 400 || error.status == 0 || error.status == 401 || error.status == 403){
+              alert("Error Connexion Server ou session");
+            }else{
+              alert("Error "+error.status);
+            };
+          }
+    }
+
+    changeActive(id,active){
+        //this.ToogleActive = !this.ToogleActive;
+        alert(id+" "+active);
+        active = ! active;
+        let NumberActive: number = 0;
+
+        (active == true)?NumberActive=1:NumberActive=0;
+
+        this.userService.updateActiveUser(id,NumberActive).subscribe((result: any) => {
+            console.log(result);
+            if (result.StatusCode == 302) {
+                // duplicated
+                alert('Title already exists');
+            } else if (result.StatusCode == 1000) {
+                if(NumberActive == 1){
+                    alert('User Number '+id+ ' Enabled');
+                }else{
+                    alert('User Number '+id+ ' Disabled');
+                }
+                
+                this.getTutors();
+                //this.Router.navigateByUrl('dashboard/categories/view/1');
+            } else {
+                alert(result.StatusCode);
+            }
+        }),
+            (errors: any) => {
+                console.log(errors);
+                if (
+                    errors.status == 400 ||
+                    errors.status == 0 ||
+                    errors.status == 404 ||
+                    errors.status == 403
+                ) {
+                    // Bad Request Unauthorized
+                    alert('Error Connexion Server or Session');
+                }
+        };
     }
 
     // Open confirmation dialog

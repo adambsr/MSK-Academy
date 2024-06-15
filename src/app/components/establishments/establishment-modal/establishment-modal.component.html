@@ -1,0 +1,35 @@
+<ng-container *transloco="let t">
+    <h2 mat-dialog-title style="color: #1565c0; font-size: 24px; text-align: center;">{{ t("Establishment Details") }}</h2>
+    <mat-dialog-content style="padding: 20px;">
+      <div style="margin-bottom: 20px;">
+        <h3 style="color: #2e7d32; font-size: 20px; margin-bottom: 10px;">{{ t("Contact Person Information") }}</h3>
+        <p><strong>{{ t("Contact person name") }}:</strong> {{ establishment.contactFirstName }}</p>
+        <p><strong>{{ t("Contact person last name") }}:</strong> {{ establishment.contactLastName }}</p>
+        <p><strong>{{ t("Contact number") }}:</strong> {{ establishment.contactNumber }}</p>
+        <p><strong>{{ t("Email address") }}:</strong> {{ establishment.emailAddress }}</p>
+        <p><strong>{{ t("National Identification Card (NIC)") }}:</strong> {{ establishment.nic }}</p>
+      </div>
+  
+      <div style="margin-bottom: 20px;">
+        <h3 style="color: #d32f2f; font-size: 20px; margin-bottom: 10px;">{{ t("Establishment Information") }}</h3>
+        <p><strong>{{ t("Establishment name") }}:</strong> {{ establishment.establishmentName }}</p>
+        <p><strong>{{ t("Establishment type") }}:</strong> {{ establishment.establishmentType }}</p>
+        <p><strong>{{ t("Location") }}:</strong> {{ establishment.location }}</p>
+        <p><strong>{{ t("Business Verification Picture") }}:</strong> {{ establishment.BusinessVerificationPicture }}</p>
+      </div>
+  
+      <div style="margin-bottom: 20px;">
+        <h3 style="color: #f57c00; font-size: 20px; margin-bottom: 10px;">{{ t("Partnership Information") }}</h3>
+        <p><strong>{{ t("Is Business Account") }}:</strong> {{ establishment.IsBusinessAccount ? t("Yes") : t("No") }}</p>
+        <p><strong>{{ t("Partnership Type") }}:</strong> {{ establishment.PartnershipType }}</p>
+        <p><strong>{{ t("Partnership Start Date") }}:</strong> {{ establishment.PartnershipStartDate | date:'longDate' }}</p>
+        <p><strong>{{ t("Partnership End Date") }}:</strong> {{ establishment.PartnershipEndDate | date:'longDate' }}</p>
+        <p><strong>{{ t("Status") }}:</strong> {{ establishment.status ? t("Enabled") : t("Disabled") }}</p>
+      </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-raised-button color="primary" [mat-dialog-close]="true">{{ t("Close") }}</button>
+    </mat-dialog-actions>
+  </ng-container>
+  

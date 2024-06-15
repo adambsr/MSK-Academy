@@ -2,6 +2,7 @@ import { I18nPluralPipe, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from 'app/core/auth/auth.service';
+import { LoginService } from 'app/Services/login.service';
 import { finalize, Subject, takeUntil, takeWhile, tap, timer } from 'rxjs';
 
 @Component({
@@ -25,6 +26,7 @@ export class AuthSignOutComponent implements OnInit, OnDestroy
      */
     constructor(
         private _authService: AuthService,
+        private loginService: LoginService,
         private _router: Router,
     )
     {
@@ -41,6 +43,7 @@ export class AuthSignOutComponent implements OnInit, OnDestroy
     {
         // Sign out
         this._authService.signOut();
+        this.loginService.doLogout();
 
         // Redirect after the countdown
         timer(1000, 1000)

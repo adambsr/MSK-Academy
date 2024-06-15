@@ -1,1 +1,214 @@
-<p>edituser works!</p>
+<div class="flex flex-col flex-auto min-w-0">
+  <!-- Header -->
+  <div
+      class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+      <div class="flex-1 min-w-0">
+          <!-- Title -->
+          <div class="mt-2">
+              <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+                  *transloco="let t">
+                  {{ t("Edit users") }}
+              </h2>
+          </div>
+      </div>
+  </div>
+  <style>
+      .button-container {
+          display: flex;
+          justify-content: flex-end;
+          gap: 10px;
+      }
+  </style>
+  <!-- Main -->
+  <div class="flex-auto p-6 sm:p-10">
+      <div class="max-w-8xl">
+          <h2 class="text-2xl md:text-3xl font-extrabold leading-7 sm:leading-10 truncate" *transloco="let t">
+              {{ t("Please fill the form:") }}
+          </h2>
+
+          <form class="flex flex-col mt-8 p-8 pb-4 bg-card rounded-2xl shadow overflow-hidden" *transloco="let t"
+              [formGroup]="userForm" #userNgForm="ngForm">
+              <!-- Name Fields -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <!-- First Name -->
+                  <mat-form-field [ngClass]="formFieldHelpers">
+                      <mat-label>{{ t("First name") }}</mat-label>
+                      <!-- <input matInput required [formControl]="FirstNameFormControl" />
+                    <mat-error *ngIf="FirstNameFormControl.errors?.required">
+                        {{ t("This field is required") }}
+                    </mat-error> -->
+                      <input matInput type="text" [formControlName]="'FirstName'" />
+                      <mat-icon matSuffix svgIcon="heroicons_solid:user-circle" class="icon-size-5"></mat-icon>
+                  </mat-form-field>
+                  <!-- Last Name -->
+                  <mat-form-field [ngClass]="formFieldHelpers">
+                      <mat-label>{{ t("Last name") }}</mat-label>
+                      <input matInput type="text" [formControlName]="'LastName'" />
+                      <mat-icon matSuffix svgIcon="heroicons_solid:user-circle" class="icon-size-5"></mat-icon>
+                  </mat-form-field>
+              </div>
+
+              <!-- Username & Password -->
+              <div class="grid grid-cols-2 gap-6">
+                  <!-- Username -->
+                  <mat-form-field [ngClass]="formFieldHelpers">
+                      <mat-label>{{ t("Username") }}</mat-label>
+                      <input matInput required type="text" placeholder="{{ t('Enter your username') }}"
+                          [formControlName]="'Username'" />
+                      <mat-icon matSuffix svgIcon="heroicons_solid:user-circle" class="icon-size-5"></mat-icon>
+                  </mat-form-field>
+                  <!-- Password -->
+                  <mat-form-field [ngClass]="formFieldHelpers">
+                      <mat-label>{{ t("Password") }}</mat-label>
+                      <input matInput [type]="hide ? 'password' : 'text'" placeholder="{{ t('Enter your password') }}"
+                          required [formControlName]="'Password'" />
+                      <mat-icon matSuffix (click)="toggleHide()" class="clickable">{{
+                          hide ? "visibility_off" : "visibility"
+                          }}</mat-icon>
+                  </mat-form-field>
+              </div>
+
+              <!-- NIC & Contact Number -->
+              <div class="grid grid-cols-2 gap-6">
+                  <!-- CIN -->
+                  <mat-form-field [ngClass]="formFieldHelpers">
+                      <mat-label>{{
+                          t("National Identification Card (NIC)")
+                          }}</mat-label>
+                      <input matInput placeholder="{{ t('Ex.11223344') }}" required [formControlName]="'NIC'" />
+                      <mat-icon matSuffix svgIcon="heroicons_solid:user-circle" class="icon-size-5"></mat-icon>
+                  </mat-form-field>
+                  <!-- Contact Number -->
+                  <mat-form-field [ngClass]="formFieldHelpers">
+                      <mat-label>{{ t("Contact number") }}</mat-label>
+                      <span matTextPrefix>+216 &nbsp;</span>
+                      <input type="tel" matInput placeholder="55-555-123" [formControlName]="'Telephone'" required />
+                      <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                  </mat-form-field>
+              </div>
+
+              <!-- Email & Birthdate -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <!-- Email address -->
+                  <mat-form-field [ngClass]="formFieldHelpers">
+                      <mat-label>{{ t("Email address") }}</mat-label>
+                      <input type="email" matInput required placeholder="pat@example.com"
+                          [formControlName]="'Email'" />
+                      <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
+                  </mat-form-field>
+                  <!-- Birthdate -->
+                  <mat-form-field [ngClass]="formFieldHelpers">
+                      <mat-label>{{ t("Birthdate") }}</mat-label>
+                      <input matInput [matDatepicker]="picker" [formControlName]="'BirthDate'" />
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+              </div>
+
+              <!-- Gender & Address -->
+              <div class="grid grid-cols-2 gap-6">
+                  <!-- Gender -->
+                  <mat-form-field [ngClass]="formFieldHelpers">
+                      <mat-label>{{ t("Gender") }}</mat-label>
+                      <mat-select required placeholder="{{ t('Choose...') }}" [formControlName]="'Gender'">
+                          <mat-option value="male">{{
+                              t("Male")
+                              }}</mat-option>
+                          <mat-option value="female">{{
+                              t("Female")
+                              }}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  <!-- Address -->
+                  <mat-form-field [ngClass]="formFieldHelpers">
+                      <mat-label>{{ t("Address") }}</mat-label>
+                      <input matInput required [formControlName]="'Address'" />
+                      <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:home'"></mat-icon>
+                  </mat-form-field>
+              </div>
+
+              <!-- Location -->
+              <div class="grid grid-cols-2 gap-6">
+                  <!-- Country -->
+                  <mat-form-field [ngClass]="formFieldHelpers">
+                      <mat-label>{{ t("Country") }}</mat-label>
+                      <mat-select required placeholder="{{ t('Choose...') }}" [formControlName]="'IdCountry'">
+                          <mat-option *ngFor="let item of Countries" [value]="item.IdCountry">{{ item.NameEN
+                              }}</mat-option>
+                      </mat-select>
+                      <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
+                  </mat-form-field>
+                  <!-- State -->
+                  <mat-form-field [ngClass]="formFieldHelpers">
+                      <mat-label>{{ t("State") }}</mat-label>
+                      <mat-select required placeholder="{{ t('Choose...') }}" [formControlName]="'IdState'">
+                          <mat-option *ngFor="let item of States" [value]="item.IdState">{{ item.NameEN
+                              }}</mat-option>
+                      </mat-select>
+                      <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
+                  </mat-form-field>
+              </div>
+
+              <!-- Role Selection -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <!-- Role Selection -->
+                  <mat-form-field [ngClass]="formFieldHelpers">
+                      <mat-label>{{ t("Role") }}</mat-label>
+                      <mat-select required placeholder="{{ t('Choose...') }}" [formControlName]="'IdRole'"
+                          (selectionChange)="onRoleChange($event.value)">
+                          <mat-option [value]="2">{{ t("Tutor") }}</mat-option>
+                          <mat-option [value]="1">{{ t("Candidate") }}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </div>
+
+              <!-- Qualifications & Teaching Experience & Speciality-->
+              <div *ngIf="selectedRole === 2">
+                  <div class="grid grid-cols-3 gap-6">
+                      <!-- Qualifications -->
+                      <mat-form-field [ngClass]="formFieldHelpers">
+                          <mat-label>{{ t("Qualifications") }}</mat-label>
+                          <textarea matInput [formControlName]="'Qualifications'"></textarea>
+                          <mat-icon class="icon-size-5" matSuffix
+                              [svgIcon]="'heroicons_solid:academic-cap'"></mat-icon>
+                      </mat-form-field>
+                      <!-- Teaching Experience -->
+                      <mat-form-field [ngClass]="formFieldHelpers">
+                          <mat-label>{{ t("Teaching Experience") }}</mat-label>
+                          <textarea matInput [formControlName]="'TeachingExperience'"></textarea>
+                          <mat-icon matSuffix svgIcon="heroicons_solid:light-bulb" class="icon-size-5"></mat-icon>
+                      </mat-form-field>
+                      <!-- Speciality -->
+                      <mat-form-field [ngClass]="formFieldHelpers">
+                          <mat-label>{{ t("Speciality") }}</mat-label>
+                          <input matInput [formControlName]="'Speciality'" />
+                      </mat-form-field>
+                  </div>
+              </div>
+
+              <!-- Upload Photo -->
+              <div class="form-group margin-bottom10">
+                  <div class="col-md-12">
+                      <div class="">
+                          <mat-label *transloco="let t">{{ t("Upload photo") }}</mat-label>
+                          <input type="file" class="form-control height50 txt-22 btnUploadImg"
+                              (change)="uploadPhoto($event)" style="display: block; margin-top: 5px;" />
+                      </div>
+                      <!-- Uploaded Photo Preview -->
+                      <img src="{{ photo }}" class="w-64 ..." height="150px" width="200px" />
+                  </div>
+              </div>
+
+              <!-- Submit and Reset Buttons -->
+              <div class="button-container">
+                  <button mat-flat-button type="reset" class="reset-button" color="warn">
+                      {{ t("Reset") }}
+                  </button>
+                  <button mat-flat-button type="submit" class="submit-button" color="primary" (click)="submit()">
+                      {{ t("Submit") }}
+                  </button>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>

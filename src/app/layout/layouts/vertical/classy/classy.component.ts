@@ -7,6 +7,7 @@ import { FuseFullscreenComponent } from '@fuse/components/fullscreen';
 import { FuseLoadingBarComponent } from '@fuse/components/loading-bar';
 import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
+import { Config } from 'app/Config/Config';
 import { NavigationService } from 'app/core/navigation/navigation.service';
 import { Navigation } from 'app/core/navigation/navigation.types';
 import { UserService } from 'app/core/user/user.service';
@@ -33,6 +34,21 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
     navigation: Navigation;
     user: User;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+
+    public Config: Config = new Config();
+
+    photoName: any = localStorage.getItem("photo");
+
+    photoUrl : string =this.Config.getPhotoPath("users");
+
+    photo: string = this.photoUrl+ this.photoName;
+
+    FirstName: any = localStorage.getItem("FirstName"); 
+
+    LastName: any = localStorage.getItem("LastName");
+
+    Email: any = localStorage.getItem("Email");
+
 
     /**
      * Constructor

@@ -94,30 +94,92 @@
                     </mat-form-field>
                 </div>
 
-                <!-- Email Address & Contact Number -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Username & Password -->
+                <div class="grid grid-cols-2 gap-6">
+                    <!-- Username -->
                     <mat-form-field>
-                        <mat-label>{{ t("Email address") }}</mat-label>
+                        <mat-label>{{ t("Username") }}</mat-label>
                         <input
-                            type="email"
                             matInput
+                            placeholder="{{ t('Enter your username') }}"
                             required
-                            placeholder="pat@example.com"
-                            [formControl]="emailFormControl"
+                            [formControl]="UsernameFormControl"
                         />
-                        <mat-error *ngIf="emailFormControl.errors?.required">
+                        <mat-error *ngIf="UsernameFormControl.errors?.required">
                             {{ t("This field is required") }}
                         </mat-error>
-                        <mat-error *ngIf="emailFormControl.errors?.email">
-                            {{ t("Please enter a valid email address") }}
-                        </mat-error>
                         <mat-icon
-                            class="icon-size-5"
                             matSuffix
-                            [svgIcon]="'heroicons_solid:mail'"
+                            svgIcon="heroicons_solid:user-circle"
+                            class="icon-size-5"
                         ></mat-icon>
                     </mat-form-field>
+                    <!-- Password -->
+                    <mat-form-field>
+                        <mat-label>{{ t("Password") }}</mat-label>
+                        <input
+                            matInput
+                            [type]="hide ? 'password' : 'text'"
+                            placeholder="{{ t('Enter your password') }}"
+                            required
+                            [formControl]="PasswordFormControl"
+                        />
+                        <mat-icon
+                            matSuffix
+                            (click)="toggleHide()"
+                            class="clickable"
+                            >{{
+                                hide ? "visibility_off" : "visibility"
+                            }}</mat-icon
+                        >
+                        <mat-error *ngIf="PasswordFormControl.errors?.required">
+                            {{ t("This field is required") }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
 
+                <!-- NIC & Contact Number -->
+                <div class="grid grid-cols-2 gap-6">
+                    <!-- CIN -->
+                    <mat-form-field>
+                        <mat-label>{{
+                            t("National Identification Card (NIC)")
+                        }}</mat-label>
+                        <input
+                            matInput
+                            placeholder="{{ t('Ex.11223344') }}"
+                            required
+                            [formControl]="NICFormControl"
+                        />
+                        <mat-error *ngIf="NICFormControl.errors?.required">
+                            {{ t("This field is required") }}
+                        </mat-error>
+                        <mat-error *ngIf="NICFormControl.errors?.pattern">
+                            {{ t("Please enter a valid NIC") }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                NICFormControl.errors?.minlength &&
+                                !NICFormControl.errors?.pattern
+                            "
+                        >
+                            {{ t("NIC is too short") }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                NICFormControl.errors?.maxlength &&
+                                !NICFormControl.errors?.pattern
+                            "
+                        >
+                            {{ t("NIC is too long") }}
+                        </mat-error>
+                        <mat-icon
+                            matSuffix
+                            svgIcon="heroicons_solid:user-circle"
+                            class="icon-size-5"
+                        ></mat-icon>
+                    </mat-form-field>
+                    <!-- Contact Number -->
                     <mat-form-field>
                         <mat-label>{{ t("Contact number") }}</mat-label>
                         <span matTextPrefix>+216 &nbsp;</span>
@@ -162,44 +224,30 @@
                     </mat-form-field>
                 </div>
 
-                <!-- Address & Field of Study -->
+                <!-- Email & Birthdate -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Email address -->
                     <mat-form-field>
-                        <mat-label>{{ t("Address") }}</mat-label>
-                        <input matInput [formControl]="AddressFormControl" />
-                        <mat-icon
-                            class="icon-size-5"
-                            matSuffix
-                            [svgIcon]="'heroicons_solid:home'"
-                        ></mat-icon>
-                        <mat-error
-                            *ngIf="AddressFormControl.errors?.required"
-                        >
-                            {{ t("Address is required") }}
-                        </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field>
-                        <mat-label>{{ t("Field of study") }}</mat-label>
+                        <mat-label>{{ t("Email address") }}</mat-label>
                         <input
+                            type="email"
                             matInput
-                            [formControl]="fieldOfStudyFormControl"
+                            required
+                            placeholder="pat@example.com"
+                            [formControl]="emailFormControl"
                         />
-                        <mat-icon
-                            class="icon-size-5"
-                            matSuffix
-                            svgIcon="heroicons_solid:academic-cap"
-                        ></mat-icon>
-                        <mat-error
-                            *ngIf="fieldOfStudyFormControl.errors?.required"
-                        >
+                        <mat-error *ngIf="emailFormControl.errors?.required">
                             {{ t("This field is required") }}
                         </mat-error>
+                        <mat-error *ngIf="emailFormControl.errors?.email">
+                            {{ t("Please enter a valid email address") }}
+                        </mat-error>
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            [svgIcon]="'heroicons_solid:envelope'"
+                        ></mat-icon>
                     </mat-form-field>
-                </div>
-
-                <!-- Birthdate & Gender -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <!-- Birthdate -->
                     <mat-form-field>
                         <mat-label>{{ t("Birthdate") }}</mat-label>
@@ -207,8 +255,10 @@
                             matInput
                             [matDatepicker]="picker"
                             [formControl]="BirthdateFormControl"
+                            readonly
+                            (click)="picker.open()"
+                            placeholder="{{ t('Enter birthdate') }}"
                         />
-                        <input matInput [matDatepicker]="picker" />
                         <mat-datepicker-toggle
                             matSuffix
                             [for]="picker"
@@ -220,8 +270,12 @@
                             {{ t("This field is required") }}
                         </mat-error>
                     </mat-form-field>
-                    <!-- Gender Dropdown -->
-                    <mat-form-field>
+                </div>
+
+                <!-- Location -->
+                <div class="grid grid-cols-2 gap-6">
+                    <!-- Gender -->
+                    <mat-form-field class="w-full">
                         <mat-label>{{ t("Gender") }}</mat-label>
                         <mat-select
                             required
@@ -240,6 +294,124 @@
                         <mat-error *ngIf="genderSelect.errors?.required">
                             {{ t("Please select a gender") }}
                         </mat-error>
+                    </mat-form-field>
+                    <!-- Address -->
+                    <mat-form-field>
+                        <mat-label>{{ t("Address") }}</mat-label>
+                        <input
+                            matInput
+                            required
+                            [formControl]="AddressFormControl"
+                        />
+                        <mat-error *ngIf="AddressFormControl.errors?.required">
+                            {{ t("This field is required") }}
+                        </mat-error>
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            [svgIcon]="'heroicons_solid:home'"
+                        ></mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <!-- Location -->
+                <div class="grid grid-cols-3 gap-6">
+                    <!-- Country -->
+                    <mat-form-field>
+                        <mat-label>{{ t("Country") }}</mat-label>
+                        <mat-select
+                            required
+                            placeholder="{{ t('Choose...') }}"
+                            [(ngModel)]="selectedCountry"
+                            #countrySelect="ngModel"
+                            name="country"
+                        >
+                            <mat-option value=""></mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="countrySelect.errors?.required">
+                            {{ t("Please select a country") }}
+                        </mat-error>
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            [svgIcon]="'heroicons_solid:map-pin'"
+                        ></mat-icon>
+                    </mat-form-field>
+                    <!-- State -->
+                    <mat-form-field>
+                        <mat-label>{{ t("State") }}</mat-label>
+                        <mat-select
+                            required
+                            placeholder="{{ t('Choose...') }}"
+                            [(ngModel)]="selectedState"
+                            #stateSelect="ngModel"
+                            name="state"
+                        >
+                            <mat-option value=""></mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="stateSelect.errors?.required">
+                            {{ t("Please select a state") }}
+                        </mat-error>
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            [svgIcon]="'heroicons_solid:map-pin'"
+                        ></mat-icon>
+                    </mat-form-field>
+                    <!-- City -->
+                    <mat-form-field>
+                        <mat-label>{{ t("City") }}</mat-label>
+                        <mat-select
+                            required
+                            placeholder="{{ t('Choose...') }}"
+                            [(ngModel)]="selectedCity"
+                            #citySelect="ngModel"
+                            name="city"
+                        >
+                            <mat-option value=""></mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="citySelect.errors?.required">
+                            {{ t("Please select a city") }}
+                        </mat-error>
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            [svgIcon]="'heroicons_solid:map-pin'"
+                        ></mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <!-- Field of Study & Parent-->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Field Of Study -->
+                    <mat-form-field>
+                        <mat-label>{{ t("Field of study") }}</mat-label>
+                        <input
+                            matInput
+                            [formControl]="fieldOfStudyFormControl"
+                        />
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            svgIcon="heroicons_solid:academic-cap"
+                        ></mat-icon>
+                        <mat-error
+                            *ngIf="fieldOfStudyFormControl.errors?.required"
+                        >
+                            {{ t("This field is required") }}
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- Parent -->
+                    <mat-form-field>
+                        <mat-label>{{ t("Parent's full name") }}</mat-label>
+                        <input
+                            matInput
+                        />
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            svgIcon="heroicons_solid:users"
+                        ></mat-icon>
                     </mat-form-field>
                 </div>
 

@@ -6,7 +6,7 @@ import {
 } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { TextFieldModule } from '@angular/cdk/text-field';
-import { AsyncPipe, NgClass } from '@angular/common';
+import { AsyncPipe, CommonModule, NgClass } from '@angular/common';
 import {
     FormControl,
     FormsModule,
@@ -22,7 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Route, Router } from '@angular/router';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -32,105 +32,149 @@ import { MatDialog } from '@angular/material/dialog';
 import { UserModalComponent } from '../user-modal/user-modal.component';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { FormBuilder } from '@angular/forms';
+import { Config } from 'app/Config/Config';
+import { UsersService } from 'app/Services/users.service';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { Users } from 'app/Models/users';
 
 @Component({
     selector: 'app-viewuser',
     standalone: true,
     templateUrl: './viewuser.component.html',
     styleUrl: './viewuser.component.scss',
-    imports: [
-        MatIconModule,
-        MatTableModule,
-        FormsModule,
-        MatFormFieldModule,
-        NgClass,
-        MatInputModule,
-        TextFieldModule,
-        ReactiveFormsModule,
-        MatButtonToggleModule,
-        MatButtonModule,
-        MatSelectModule,
-        MatOptionModule,
-        MatChipsModule,
-        MatDatepickerModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatAutocompleteModule,
-        AsyncPipe,
-        TranslocoModule,
-        MatRippleModule,
-        UserModalComponent,
+    imports: [CommonModule,MatIconModule,MatTableModule,FormsModule,MatFormFieldModule,NgClass, MatInputModule,TextFieldModule,ReactiveFormsModule,MatButtonToggleModule,MatButtonModule,MatSelectModule,MatOptionModule,MatChipsModule,MatDatepickerModule,MatPaginatorModule,MatSortModule,MatAutocompleteModule,AsyncPipe,TranslocoModule,MatRippleModule,UserModalComponent,MatSlideToggleModule,
     ],
 })
 export class ViewuserComponent implements AfterViewInit, OnInit {
     configForm: UntypedFormGroup;
 
     displayedColumns: string[] = [
-        'position',
-        //'firstName',
-        //'lastName',
-        'username',
-        //'password',
-        //'nic',
-        //'contactNumber',
-        'emailAddress',
-        //'birthdate',
-        //'gender',
-        //'address',
-        //'country',
-        //'state',
-        //'city',
-        //'role',
-        //'facebookId',
-        //'googleId',
-        //'refreshToken',
-        //'creationDate',
-        //'isVerified',
-        //'isPremium',
-        //'premiumExpiry',
-        //'lastConnection',
-        'actions',
-        'status',
+        'ID','firstName','lastName','emailAddress','role','actions','status',
     ];
 
-    dataSource = new MatTableDataSource<UserElement>(ELEMENT_DATA);
+    id: number;
+    isPageActive = 1;
+    NbrPages : number = 1;
+    NbrPages2: number = 1; 
+    Rech : string = 'null';
+
+    isEmpty: boolean=true;   // modal
+    isEmptyData: boolean = true;
+    
+    public Config: Config = new Config;
+    APIUrl : string = this.Config.getAPIPath();
+
+    photoName: string = "anonymous.jpg";
+    image : string =this.Config.getPhotoPath("users");
+    photo: string = this.image+ this.photoName;
+
+    dataSource = new MatTableDataSource<Users>();
 
     constructor(
-        private router: Router,
+        private router : Router,
+        private userService : UsersService,
+        private route: ActivatedRoute,
         private dialog: MatDialog,
         private translocoService: TranslocoService,
         private _formBuilder: UntypedFormBuilder,
         private _fuseConfirmationService: FuseConfirmationService
     ) {
-        // this.translocoService.setActiveLang('en'); // Set the initial language
-        // this.translocoService.load('en').subscribe(() => {
-        //     this.translocoService.setActiveLang('en'); // Set the initial language
-        // });
+        this.route.params.subscribe((Params: Params) => {
+            this.id = Params['id'];
+          });
     }
 
-    openUserModal(user: UserElement): void {
+    ngOnInit() {
+        this.filteredOptions = this.myControl.valueChanges.pipe(
+            startWith(''),
+            // map((value) => this._filter(value || ''))
+            map((value) => (value ? this._filter(value) : []))
+        );
+        console.log(this.filteredOptions);
+        this.getUsers();
+    }
+
+    getUsers(){
+        this.userService.getUsers().subscribe((data : any) =>{
+            //this.languages=data;
+            console.log(data);
+            if(data!="Empty" && data!=""){
+              this.dataSource = new MatTableDataSource(data);
+              this.dataSource.data = data;
+              this.isEmptyData = false;
+            }else{
+               this.isEmptyData = true;
+            }
+            //this.dataSource.paginator = this.paginator;
+            //this.dataSource.sort = this.sort;
+       
+          }),(error: any) => {
+            console.log(error);
+            if(error.status == 400 || error.status == 0 || error.status == 401 || error.status == 403){
+              alert("Error Connexion Server ou session");
+            }else{
+              alert("Error "+error.status);
+            };
+          }
+    }
+
+    changeActive(id,active){
+        active = ! active;
+        let NumberActive: number = 0;
+
+        (active == true)?NumberActive=1:NumberActive=0;
+
+        this.userService.updateActiveUser(id,NumberActive).subscribe((result: any) => {
+            console.log(result);
+            if (result.StatusCode == 302) {
+                // duplicated
+                alert('Title already exists');
+            } else if (result.StatusCode == 1000) {
+                if(NumberActive == 1){
+                    alert('User Number '+id+ ' Enabled');
+                }else{
+                    alert('User Number '+id+ ' Disabled');
+                }
+                
+                this.getUsers();
+                //this.Router.navigateByUrl('dashboard/categories/view/1');
+            } else {
+                alert(result.StatusCode);
+            }
+        }),
+            (errors: any) => {
+                console.log(errors);
+                if (
+                    errors.status == 400 ||
+                    errors.status == 0 ||
+                    errors.status == 404 ||
+                    errors.status == 403
+                ) {
+                    // Bad Request Unauthorized
+                    alert('Error Connexion Server or Session');
+                }
+        };
+    }
+
+
+    openUserModal(user: Users): void {
         const dialogRef = this.dialog.open(UserModalComponent, {
             width: '400px',
             data: { user: user },
         });
     }
 
-    @ViewChild(MatTable) table: MatTable<UserElement>;
+    @ViewChild(MatTable) table: MatTable<Users>;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-    toggleActiveState(element: UserElement) {
-        element.status = !element.status;
-        // Optionally, trigger any additional actions here, such as updating the state in the backend.
-    }
-
     openEditUserPage(element: any) {
         // Assuming `element` has an `id` property you want to pass to the edit route
-        this.router.navigate(['/users/edit/', element.position]);
+        this.router.navigate(['dashboard/users/edit/', element.Id]);
     }
 
     openAddUserPage() {
-        this.router.navigate(['/users/add/']);
+        this.router.navigate(['dashboard/users/add/']);
     }
 
     ngAfterViewInit() {
@@ -150,39 +194,13 @@ export class ViewuserComponent implements AfterViewInit, OnInit {
     }
 
     myControl = new FormControl('');
-    options: string[] = [
-        'Ahmed',
-        'Adam',
-        'Afra',
-        'Salim',
-        'Mahdoush',
-        'Mahdi',
-        'Wissem',
-        'Youssef',
-        'Kout',
-        'Boussarsar',
-        'Jerbi',
-        'Chahed',
-        'Khlif',
-        'Ben Lakhel',
-        'Hajbi',
-        'Tutor',
-        'Parent',
-        'Candidate',
-    ];
+    options: string[] = [];
+    
     filteredOptions: Observable<string[]>;
 
-    ngOnInit() {
-        this.filteredOptions = this.myControl.valueChanges.pipe(
-            startWith(''),
-            // map((value) => this._filter(value || ''))
-            map((value) => (value ? this._filter(value) : []))
-        );
-        console.log(this.filteredOptions);
-    }
-
+   
     // Open confirmation dialog
-    openConfirmationDialog(element: UserElement): void {
+    openConfirmationDialog(element: Users): void {
         const configForm = this._formBuilder.group({
           title: this.translocoService.translate('deleteUserConfirmation.title'),
           message: this.translocoService.translate('deleteUserConfirmation.message'),
@@ -220,18 +238,24 @@ export class ViewuserComponent implements AfterViewInit, OnInit {
         });
     }
 
-    deleteData(element: UserElement) {
-        // Filter the data array directly, removing the element
-        console.log(element);
-        const filteredData = this.dataSource.data.filter((e) => e !== element);
-
-        // Set the filtered data back to the dataSource.data
-        this.dataSource.data = filteredData;
-
-        // Update pagination
-        if (this.paginator) {
-            this.paginator.length = this.dataSource.data.length;
-        }
+    deleteData(element: Users) {
+        // Call the backend to delete the user
+        this.userService.deleteUser(element.IdUser).subscribe({
+            next: (response) => {
+                // Remove the user from the dataSource.data array
+                this.dataSource.data = this.dataSource.data.filter(e => e.IdUser !== element.IdUser);
+    
+                // Inform MatTable about the update
+                this.table.renderRows();
+    
+                // Optionally, refresh the list to fetch updated data from the server
+                // this.getUsers();
+            },
+            error: (error) => {
+                console.error('Error deleting the user:', error);
+                alert("Error when trying to delete the user.");
+            }
+        });
     }
 
     private _filter(value: string): string[] {
@@ -242,111 +266,3 @@ export class ViewuserComponent implements AfterViewInit, OnInit {
         );
     }
 }
-
-export interface UserElement {
-    position: number;
-    firstName: string;
-    lastName: string;
-    username: string;
-    // password: string;
-    nic: number;
-    emailAddress: string;
-    contactNumber: number;
-    birthdate: Date;
-    gender: 'Male' | 'Female';
-    address: string;
-    country: string;
-    state: string;
-    city: string;
-    facebookId?: string; // Optional
-    googleId?: string; // Optional
-    refreshToken?: string;
-    creationDate?: Date;
-    isVerified?: boolean;
-    isPremium?: boolean;
-    premiumExpiry?: Date;
-    lastConnection?: Date;
-    role: 'Tutor' | 'Candidate' | 'Parent';
-    status?: boolean;
-}
-
-const ELEMENT_DATA: UserElement[] = [
-    {
-        position: 1,
-        firstName: 'Ahmed',
-        lastName: 'Boussarsar',
-        username: 'ahmed_boussarsar',
-        // password: '123',
-        nic: 11164054,
-        emailAddress: 'adam@gmail.com',
-        contactNumber: 20843465,
-        birthdate: new Date(2002, 2, 8),
-        gender: 'Male',
-        address: '123 Main Street',
-        country: 'Country A',
-        state: 'State X',
-        city: 'City Y',
-        facebookId: 'facebookId123',
-        googleId: 'googleId123',
-        refreshToken: 'refreshToken123',
-        creationDate: new Date(),
-        isVerified: true,
-        isPremium: false,
-        premiumExpiry: new Date(2025, 6, 15),
-        lastConnection: new Date(2023, 5, 31),
-        role: 'Tutor',
-        status: true,
-    },
-    {
-        position: 2,
-        firstName: 'Afra',
-        lastName: 'Kout',
-        username: 'afra_kout',
-        // password: 'pass1234',
-        nic: 11155522,
-        emailAddress: 'afra@gmail.com',
-        contactNumber: 9876543210,
-        birthdate: new Date(2002, 2, 19),
-        gender: 'Female',
-        address: '456 Elm Street',
-        country: 'Country B',
-        state: 'State Y',
-        city: 'City Z',
-        facebookId: 'facebookId123',
-        googleId: 'googleId123',
-        refreshToken: 'refreshToken123',
-        creationDate: new Date(),
-        isVerified: true,
-        isPremium: false,
-        premiumExpiry: new Date(),
-        lastConnection: new Date(2024, 3, 27),
-        role: 'Parent',
-        status: false,
-    },
-    {
-        position: 3,
-        firstName: 'Ahmed',
-        lastName: 'Jerbi',
-        username: 'ahmed_jerbi',
-        // password: 'fotix',
-        nic: 11223344,
-        emailAddress: 'jerbi@gmail.com',
-        contactNumber: 90123478,
-        birthdate: new Date(2002, 11, 11),
-        gender: 'Male',
-        address: '123 Oak Street',
-        country: 'Country A',
-        state: 'State X',
-        city: 'City Y',
-        facebookId: 'facebookId456',
-        googleId: 'googleId456',
-        refreshToken: 'refreshToken456',
-        creationDate: new Date(),
-        isVerified: true,
-        isPremium: true,
-        premiumExpiry: new Date(2023, 11, 31),
-        lastConnection: new Date(2021, 6, 5),
-        role: 'Candidate',
-        status: true,
-    },
-];

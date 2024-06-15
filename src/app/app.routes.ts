@@ -11,23 +11,55 @@ import { CoursesComponent } from './componentPages/courses/courses.component';
 import { FaqComponent } from './componentPages/faq/faq.component';
 import { HomeComponent } from './componentPages/home/home.component';
 import { SponsorusComponent } from './componentPages/sponsorus/sponsorus.component';
-import { LayoutAdminComponent } from './layoutAdmin/layoutAdmin.component';
+import { LayoutHomeComponent } from './layoutHome/layoutHome.component';
+import { PrintcertificateComponent } from './components/certificates/printcertificate/printcertificate.component';
+//import { AcademyComponent } from './components/academy/academy.component';
+import { AcademyDetailsComponent } from './components/academy/details.component';
+import { MycoursesComponent } from './components/mycourses/mycourses.component';
+import { MymeetsComponent } from './components/mymeets/mymeets.component';
+//import { LayoutAdminComponent } from './layoutAdmin/layoutAdmin.component';
 
 // @formatter:off
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const appRoutes: Route[] = [
-    { path: 'home', component: HomeComponent },
-    { path: 'aboutus', component: AboutusComponent },
-    { path: 'becometutor', component: BecometutorComponent },
-    { path: 'contactus', component: ContactusComponent },
-    { path: 'courses', component: CoursesComponent },
-    { path: 'coursedetails', component: CoursedetailsComponent },
-    { path: 'faq', component: FaqComponent },
-    { path: 'sponsorus', component: SponsorusComponent },
-    { path: 'admin', component: LayoutAdminComponent },
+//===========================================
+//                                           
+//  ###    ###  #####  ##     ##  ##   ##  
+//  ## #  # ##  ##     ####   ##  ##   ##  
+//  ##  ##  ##  #####  ##  ## ##  ##   ##  
+//  ##      ##  ##     ##    ###  ##   ##  
+//  ##      ##  #####  ##     ##   #####   
+//  Dans Mock-api > Common > Navigation > api + data                                        
+//===========================================
+
+    {path: 'printCertificate/:idCourse/:idTutor', component: PrintcertificateComponent},
+    // { path: 'admin', component: LayoutAdminComponent },
     // Redirect empty path to '/dashboards/project' NORMALEMENT BESH NBADLOU YWALI HOME LEHNA
-    {path: '', pathMatch : 'full', redirectTo: 'dashboards/project'},
+    {path: '', pathMatch : 'full', redirectTo: 'home'},
+
+    // { path: 'aboutus', component: AboutusComponent },
+
+    // Auth routes for users
+    {
+        path: 'home',
+        // canActivate: [AuthGuard],
+        // canActivateChild: [AuthGuard],
+        component: LayoutHomeComponent,
+        data: {
+            layout: 'moderne' // Load the classic layout for this route
+        },
+        children: [
+            { path: 'home', component: HomeComponent },
+            { path: 'aboutus', component: AboutusComponent },
+            { path: 'becometutor', component: BecometutorComponent },
+            { path: 'contactus', component: ContactusComponent },
+            { path: 'courses', component: CoursesComponent },
+            { path: 'coursedetails/:id', component: CoursedetailsComponent },
+            { path: 'faq', component: FaqComponent },
+            { path: 'sponsorus', component: SponsorusComponent },
+        ],
+    },
 
     // Redirect signed-in user to the '/dashboards/project'
     // After the user signs in, the sign-in page will redirect the user to the 'signed-in-redirect'
@@ -36,12 +68,12 @@ export const appRoutes: Route[] = [
     {
         path: 'signed-in-redirect',
         pathMatch: 'full',
-        redirectTo: 'dashboards/project',
+        redirectTo: 'dashboard/users',
     },
 
     // Auth routes for users
     {
-        path: '',
+        path: 'dashboard',
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         component: LayoutComponent,
@@ -49,89 +81,25 @@ export const appRoutes: Route[] = [
             initialData: initialDataResolver,
         },
         children: [
-            {
-                path: 'users',
-                // component: UsersComponent,
-                loadChildren: () => import('./components/users/users.routes'),
-            },
+            { path: '',  loadChildren: () => import('./components/users/users.routes') },
+            { path: 'analytics',  loadChildren: () => import('./components/users/users.routes') },
+            { path: 'users',  loadChildren: () => import('./components/users/users.routes') },
+            { path: 'tutors', loadChildren: () => import('./components/tutors/tutors.routes') },
+            { path: 'candidates', loadChildren: () => import('./components/candidates/candidates.routes'), },
+            { path: 'profcourses', loadChildren: () => import('./components/profcourses/profcourses.routes'), },
+            { path: 'proflessons', loadChildren: () => import('./components/proflessons/proflessons.routes'), },
+            { path: 'profmeets', loadChildren: () => import('./components/profmeets/profmeets.routes'), },
+            { path: 'parents', loadChildren: () => import('./components/parents/parents.routes'), },
+            { path: 'establishments', loadChildren: () => import('./components/establishments/establishments.routes'), },
+            { path: 'categories', loadChildren: () => import('./components/categories/categories.routes'), },
+            { path: 'academy/:id', component: AcademyDetailsComponent },
+            { path: 'mycourse/view/:id', component: MycoursesComponent },
+            { path: 'mymeets/view/:idCourse', component: MymeetsComponent },
         ],
     },
 
-    // Auth routes for tutors
-    {
-        path: '',
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
-        component: LayoutComponent,
-        resolve: {
-            initialData: initialDataResolver,
-        },
-        children: [
-            {
-                path: 'tutors',
-                // component: TutorsComponent,
-                loadChildren: () => import('./components/tutors/tutors.routes'),
-            },
-        ],
-    },
-
-    // Auth routes for candidates
-    {
-        path: '',
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
-        component: LayoutComponent,
-        resolve: {
-            initialData: initialDataResolver,
-        },
-        children: [
-            {
-                path: 'candidates',
-                // component: TutorsComponent,
-                loadChildren: () =>
-                    import('./components/candidates/candidates.routes'),
-            },
-        ],
-    },
-
-    // Auth routes for parents
-    {
-        path: '',
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
-        component: LayoutComponent,
-        resolve: {
-            initialData: initialDataResolver,
-        },
-        children: [
-            {
-                path: 'parents',
-                // component: ParentsComponent,
-                loadChildren: () =>
-                    import('./components/parents/parents.routes'),
-            },
-        ],
-    },
-
-    // Auth routes for establishments
-    {
-        path: '',
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
-        component: LayoutComponent,
-        resolve: {
-            initialData: initialDataResolver,
-        },
-        children: [
-            {
-                path: 'establishments',
-                // component: TutorsComponent,
-                loadChildren: () =>
-                    import('./components/establishments/establishments.routes'),
-            },
-        ],
-    },
-
+    
+   
     // Auth routes for guests
     {
         path: '',
@@ -203,7 +171,7 @@ export const appRoutes: Route[] = [
 
     // Landing routes
     {
-        path: '',
+        path: 'admin',
         component: LayoutComponent,
         data: {
             layout: 'empty',
@@ -219,7 +187,7 @@ export const appRoutes: Route[] = [
 
     // Admin routes
     {
-        path: '',
+        path: 'admin',
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         component: LayoutComponent,

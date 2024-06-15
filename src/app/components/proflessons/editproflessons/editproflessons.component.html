@@ -1,0 +1,146 @@
+<div class="flex flex-col flex-auto min-w-0">
+  <!-- Header -->
+  <div
+    class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+    <div class="flex-1 min-w-0">
+      <!-- Title -->
+      <div class="mt-2">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+          *transloco="let t">
+          {{ t("Edit lesson") }}
+        </h2>
+      </div>
+    </div>
+  </div>
+  <style>
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+  </style>
+  <!-- Main -->
+  <div class="flex-auto p-6 sm:p-10">
+    <div class="max-w-8xl">
+
+      <h2 class="text-2xl md:text-3xl font-extrabold leading-7 sm:leading-10 truncate" *transloco="let t">
+        {{ t("Please fill the form:") }}
+      </h2>
+
+      <form class="flex flex-col mt-8 p-8 pb-4 bg-card rounded-2xl shadow overflow-hidden" *transloco="let t"
+        [formGroup]="lessonForm" #userNgForm="ngForm">
+
+        <!-- Title & Subtitle -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <!-- Title -->
+          <mat-form-field [ngClass]="formFieldHelpers">
+            <mat-label>{{ t('Title')}}</mat-label>
+            <input matInput type="text" [formControlName]="'TitleLesson'">
+            <mat-icon matSuffix svgIcon="mat_solid:title"></mat-icon>
+          </mat-form-field>
+          <!-- Subtitle -->
+          <mat-form-field [ngClass]="formFieldHelpers">
+            <mat-label>{{ t('Subtitle')}}</mat-label>
+            <input matInput type="text" [formControlName]="'SubTitleLesson'">
+            <mat-icon matSuffix svgIcon="mat_solid:subtitles"></mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Description & Content -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <!-- Description -->
+          <mat-form-field [ngClass]="formFieldHelpers">
+            <mat-label>{{ t('Description') }}</mat-label>
+            <textarea matInput [formControlName]="'DescriptionLesson'"></textarea>
+            <mat-icon matSuffix svgIcon="mat_solid:description"></mat-icon>
+          </mat-form-field>
+          <!-- Content -->
+          <mat-form-field [ngClass]="formFieldHelpers">
+            <mat-label>{{ t('Content')}}</mat-label>
+            <textarea matInput [formControlName]="'ContentLesson'"></textarea>
+            <mat-icon matSuffix svgIcon="heroicons_outline:document-text"></mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Order & Course -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <!-- Order -->
+          <mat-form-field [ngClass]="formFieldHelpers">
+            <mat-label>{{ t('Order') }}</mat-label>
+            <input matInput type="text" [formControlName]="'OrderLesson'">
+            <mat-icon matSuffix svgIcon="mat_solid:description"></mat-icon>
+          </mat-form-field>
+          <!-- Course -->
+          <mat-form-field [ngClass]="formFieldHelpers">
+            <mat-label>{{ t("Course") }}</mat-label>
+            <mat-select required placeholder="{{ t('Choose...') }}" [formControlName]="'IdCourse'">
+              <mat-option *ngFor="let item of Courses" [value]="item.IdCourse">
+                {{ item.TitleCourse }}
+              </mat-option>
+            </mat-select>
+            <mat-icon matSuffix svgIcon="heroicons_outline:document-text"></mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Upload Photo -->
+        <div class="form-group margin-bottom10">
+          <div class="col-md-12">
+            <h2><b>{{t("Upload lesson picture")}}</b></h2>
+            <input type="file" class="form-control height50 txt-22 btnUploadImg" (change)="uploadPhoto($event)"
+              style="display: block; margin-top: 5px;" />
+          </div>
+          <!-- Uploaded Photo Preview -->
+          <img src="{{ photo }}" class="w-64 ..." height="150px" width="200px" />
+        </div>
+
+        <!-- Upload Videos -->
+        <!-- <div class="form-group margin-bottom10">
+          <div class="col-md-12">
+            <h2><b>{{t("Upload lesson videos")}}</b></h2>
+            <input type="file" class="form-control height50 " id="video" name="video" ngModel required #video="ngModel"
+            accept="video/mp4,video/x-m4v" (change)="uploadVideo($event)" style="display: block; margin-top: 5px;" />
+            <span style="color: red;" *ngIf="!video.valid && video.touched">Must upload videos!</span>
+          </div>
+        </div> -->
+
+        <!-- Upload Files -->
+        <!-- <div class="form-group margin-bottom10">
+          <div class="col-md-12">
+            <h2><b>{{t("Upload lesson files")}}</b></h2>
+            <input type="file" class="form-control height40 " id="myFile" name="myFile" ngModel #myFile="ngModel"
+            accept="application/pdf" (change)="uploadFile($event)" style="display: block; margin-top: 5px;" />
+            <span style="color: red;" *ngIf="!myFile.valid && myFile.touched"> Must upload files! </span>
+          </div>
+        </div>
+
+        <table>
+          <tr *ngFor="let item of myFiles">
+            <td class="name">{{ item }}</td>
+            <td class="delete"><button (click)="DeleteFile(item)">Delete</button></td>
+          </tr>
+        </table>
+        <div class="progress form-group" *ngIf="progress > 0">
+          <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
+          </div>
+        </div>
+
+        <table>
+          <tr *ngFor="let item of myVideos">
+            <td class="name">{{ item }}</td>
+            <td class="delete"><button (click)="DeleteVideo(item)">Delete</button></td>
+          </tr>
+        </table> -->
+        
+        <!-- Submit and Reset Buttons -->
+        <div class="button-container">
+          <button mat-flat-button type="reset" class="reset-button" color="warn">
+            {{ t("Reset") }}
+          </button>
+          <button mat-flat-button type="submit" class="submit-button" color="primary" (click)="submit()"> 
+            {{ t('Add lesson')}}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

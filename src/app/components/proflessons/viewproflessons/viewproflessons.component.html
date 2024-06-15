@@ -1,0 +1,162 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header -->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+                    *transloco="let t">
+                    {{ t("Lessons list") }}
+                </h2>
+            </div>
+        </div>
+    </div>
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+        <!-- Autocomplete Search Form Field -->
+        <mat-form-field *transloco="let t">
+            <mat-label>{{ t("Search") }}</mat-label>
+            <input type="text" placeholder="{{t('Search..')}}" (blur)="applyFilter($event)" matInput
+                [matAutocomplete]="auto" #input />
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                @for (option of filteredOptions | async; track option) {
+                <mat-option [value]="option">{{ option }}</mat-option>
+                }
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <!-- Add category button -->
+        <button *transloco="let t" mat-raised-button color="primary" (click)="openAddLessonPage()" class="ml-4">
+            <mat-icon>add</mat-icon>
+            <span>{{ t("Add") }}</span>
+        </button>
+        <div class="mat-elevation-z8 max-w-8xl bg-card rounded-2xl shadow overflow-hidden">
+            <table mat-table [dataSource]="dataSource" matSort class="table-fixed">
+                <!-- Id Column -->
+                <ng-container matColumnDef="ID">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/12">
+                        Id
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/12">
+                        {{ element.IdLesson }}
+                    </td>
+                </ng-container>
+
+                <!-- Title Column -->
+                <ng-container matColumnDef="titlelesson" *transloco="let t">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
+                        {{ t("Title") }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/6">
+                        {{ element.TitleLesson }}
+                    </td>
+                </ng-container>
+
+                <!-- Subtitle Column -->
+                <ng-container matColumnDef="subtitlelesson" *transloco="let t">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
+                        {{ t("Subtitle") }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/6">
+                        {{ element.SubTitleLesson }}
+                    </td>
+                </ng-container>        
+                
+                <!-- Description Column -->
+                <ng-container matColumnDef="descriptionlesson" *transloco="let t">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
+                        {{ t("Description") }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/6">
+                        {{ element.DescriptionLesson }}
+                    </td>
+                </ng-container>                
+
+                <!-- Content Column -->
+                <ng-container matColumnDef="contentlesson" *transloco="let t">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
+                        {{ t("Content") }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/6">
+                        {{ element.ContentLesson }}
+                    </td>
+                </ng-container>      
+
+                <!-- Lesson Image Column -->
+                <ng-container matColumnDef="picturelesson" *transloco="let t">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
+                        {{ t("Picture") }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/6">
+                        <img [src]="getPictureLesson(element.PictureLesson)" alt="Lesson Picture">
+                        
+                    </td>
+                </ng-container>  
+
+                <!-- Order Column -->
+                <ng-container matColumnDef="orderlesson" *transloco="let t">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
+                        {{ t("Order") }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/6">
+                        {{ element.OrderLesson }}
+                    </td>
+                </ng-container>  
+
+                <!-- Course Column -->
+                <ng-container matColumnDef="idcourse" *transloco="let t">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
+                        {{ t("Course") }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/6">
+                        {{ element.IdCourse }}
+                    </td>
+                </ng-container>  
+
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions" *transloco="let t">
+                    <th mat-header-cell *matHeaderCellDef class="w-1/6">
+                        {{ t("Actions") }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/6">
+                        <!-- Delete Button with Confirmation -->
+                        <button mat-raised-button color="warn" (click)="openConfirmationDialog(element.IdLesson)"
+                            style="margin-right: 10px">
+                            <mat-icon svgIcon="heroicons_outline:trash"></mat-icon>
+                        </button>
+                        <!-- Edit Button -->
+                        <a mat-raised-button color="primary" (click)="openEditLesson(element.IdLesson)">
+                            <mat-icon svgIcon="heroicons_outline:pencil-square"></mat-icon>
+                        </a>
+                    </td>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="status" *transloco="let t">
+                    <th mat-header-cell *matHeaderCellDef class="w-1/6">
+                        {{ t("Status") }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/6">
+                        <mat-slide-toggle  labelPosition = "before" *ngIf="element.Active==true" [checked]="true"  (change)="changeActive(element.IdLesson,element.Active)" > {{ t("Enable") }} </mat-slide-toggle>  
+                        <mat-slide-toggle  labelPosition = "before" *ngIf="element.Active==false" [checked]="false"  (change)="changeActive(element.IdLesson,element.Active)" >{{ t("Disable") }} </mat-slide-toggle>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+                <!-- Row shown when there is no matching data in the search form. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4" *transloco="let t">
+                        {{ t("No lessons found.") }}
+                    </td>
+                </tr>
+            </table>
+            <div class="flex justify-end">
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                    aria-label="Select page of lessons"></mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

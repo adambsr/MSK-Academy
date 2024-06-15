@@ -1,1 +1,269 @@
-<p>aboutus works!</p>
+<div class="flex flex-col flex-auto min-w-0 bg-gray-100">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a mat-button [routerLink]="['/helpcenter/home']" [color]="'primary'" *transloco="let t">
+                        <mat-icon [svgIcon]="'heroicons_outline:arrow-long-left'"></mat-icon>
+                        <span class="ml-2">{{ t("Back to Home") }}</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+                    *transloco="let t">
+                    {{ t("About us") }}
+                </h2>
+            </div>
+        </div>
+    </div>
+    <!-- Main -->
+
+    <div class="font-inter">
+        <!-- <section class="py-14 lg:py-24 relative z-0 bg-gray-50" *transloco="let t">
+            <img src="assets\images\logo\msk_logo_text.svg" alt="MSK-Academy Logo Horizontal"
+                class="mx-auto h-12 sm:h-16 mb-6" />
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative text-center">
+                <h1
+                    class="max-w-2xl mx-auto text-center font-manrope font-bold text-4xl text-gray-900 mb-5 md:text-5xl md:leading-normal">
+                    {{ t("Broaden your knowledge with our") }}
+                    <span class="text-indigo-600">{{ t("Online Learning Application") }} </span>
+                </h1>
+                <p class="max-w-sm mx-auto text-center text-base font-normal leading-7 text-gray-500 mb-9">
+                    {{ t("Invest intelligently and discover a better way to") }} <strong>{{ t("learn and excel")
+                        }}</strong>.
+                </p>
+            </div>
+        </section> -->
+
+        <section class="py-14 lg:py-24 relative z-0 bg-gray-50" *transloco="let t">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative text-center">
+                <h1
+                    class="max-w-2xl mx-auto text-center font-manrope font-bold text-4xl text-gray-900 mb-5 md:text-5xl md:leading-normal">
+                    {{ t("Broaden your knowledge with") }} <br>
+                    <span class="text-indigo-600">MSK E-Learning</span>
+                </h1>
+                <p class="max-w-sm mx-auto text-center text-base font-normal leading-7 text-gray-500 mb-9">
+                    {{ t("Invest intelligently and discover a better way to") }} <strong>{{ t("learn and excel")
+                        }}</strong>.
+                </p>
+            </div>
+        </section>
+        <!-- ABOUT US SECTION -->
+        <section class="py-14 lg:py-24 relative" *transloco="let t">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-9">
+                    <div class="img-box">
+                        <img src="assets\images\logo\msk_v.svg" alt="MSK-Academy Logo Vertical"
+                            class="max-lg:mx-auto" />
+                    </div>
+                    <div class="lg:pl-[100px] flex items-center">
+                        <div class="data w-full">
+                            <h2
+                                class="font-manrope font-bold text-4xl lg:text-5xl text-black mb-8 max-lg:text-center relative">
+                                {{ t("About Us") }}
+                            </h2>
+                            <p class="font-normal text-xl leading-8 text-gray-500 max-lg:text-center max-w-2xl mx-auto ">
+                                {{ t("Driven by a passion for enriching educational experiences, we've designed our online learning platform to empower tutors and engage candidates. Our mission is to provide high-quality courses and foster interactive relationships between tutors and candidates, incorporating motivational elements to enhance learning. We ensure that each course is intuitive and engaging, facilitating a rewarding educational experience with every interaction")}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- GOALS SECTION -->
+        <section class="py-14 lg:py-24 relative" *transloco="let t">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <h2 class="font-manrope text-4xl text-center text-gray-900 font-bold mb-5">
+                    {{ t("Our Goals") }}
+                </h2>
+                <p class="font-normal text-xl leading-8 text-gray-500 max-lg:text-center max-w-2xl mx-auto mb-8 text-center">
+                    {{ t("We aim to provide our candidates with quality courses, ensuring continuous support to improve their experience and making learning more accessible through engagement and interaction")}}
+                </p>
+                <div class="flex flex-col gap-5 xl:gap-8 lg:flex-row lg:justify-between">
+                    <fuse-card class="flex flex-col items-center max-w-80 w-full p-8 filter-info">
+                        <div class="flex items-center justify-center p-5 rounded-full bg-primary-100 dark:bg-gray-600">
+                            <mat-icon
+                                class="icon-size-10 text-primary-500 dark:text-primary-300"
+                                svgIcon="heroicons_outline:book-open"></mat-icon>
+                        </div>
+                        <div class="text-2xl font-semibold leading-tight text-center mt-6">{{t("Expand Course Variety")}}</div>
+                        <div class="text-center text-secondary mt-3">{{t("Offer diverse courses to meet various interests and needs")}}</div>
+                    </fuse-card>
+
+                    <fuse-card class="flex flex-col items-center max-w-80 w-full p-8 filter-info">
+                        <div class="flex items-center justify-center p-5 rounded-full bg-primary-100 dark:bg-gray-600">
+                            <mat-icon
+                                class="icon-size-10 text-primary-500 dark:text-primary-300"
+                                svgIcon="heroicons_outline:wrench-screwdriver"></mat-icon>
+                        </div>
+                        <div class="text-2xl font-semibold leading-tight text-center mt-6">{{t("Ensure Quality Maintenance")}}</div>
+                        <div class="text-center text-secondary mt-3">{{t("Assure high standards for a valuable learning experience")}}</div>
+                    </fuse-card>
+                    
+                    <fuse-card class="flex flex-col items-center max-w-80 w-full p-8 filter-info">
+                        <div class="flex items-center justify-center p-5 rounded-full bg-primary-100 dark:bg-gray-600">
+                            <mat-icon
+                                class="icon-size-10 text-primary-500 dark:text-primary-300"
+                                svgIcon="heroicons_outline:lock-open"></mat-icon>
+                        </div>
+                        <div class="text-2xl font-semibold leading-tight text-center mt-6">{{t("Increase Access")}}</div>
+                        <div class="text-center text-secondary mt-3">{{t("Make education available to all, regardless of location or resources")}}</div>
+                    </fuse-card>
+
+                    <fuse-card class="flex flex-col items-center max-w-80 w-full p-8 filter-info">
+                        <div class="flex items-center justify-center p-5 rounded-full bg-primary-100 dark:bg-gray-600">
+                            <mat-icon
+                                class="icon-size-10 text-primary-500 dark:text-primary-300"
+                                svgIcon="heroicons_outline:academic-cap"></mat-icon>
+                        </div>
+                        <div class="text-2xl font-semibold leading-tight text-center mt-6">{{t("Promote Lifelong Learning")}}</div>
+                        <div class="text-center text-secondary mt-3">{{t("Support ongoing skill development and career growth")}}</div>
+                    </fuse-card>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider
+        <div class="my-10 border-t"></div>         -->
+
+        <!-- VALUES SECTION -->
+        <section class="py-14 lg:py-24 relative" *transloco="let t">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <h2 class="font-manrope text-4xl text-center text-gray-900 font-bold mb-5">
+                    {{ t("Our Values") }}
+                </h2>
+                <p class="font-normal text-xl leading-8 text-gray-500 max-lg:text-center max-w-2xl mx-auto mb-8 text-center">
+                    {{ t("Our application was built upon the following key values")}}
+                </p>
+                <!-- first row -->
+                <div class="flex flex-col gap-2 xl:gap-2 lg:flex-row lg:justify-between">
+                    <fuse-card class="flex items-center max-w-80 w-full p-6 filter-info">
+                        <div class="w-20 h-20 mr-6 flex items-center justify-center rounded-full bg-primary-100 dark:bg-gray-600 text-indigo-600 text-2xl font-bold">
+                            1
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="text-2xl font-semibold leading-tight">{{ t("Credibility") }}</div>
+                            <div class="text-md text-secondary">{{t("Committed to our promises, loyal to our word")}}</div>
+                        </div>
+                    </fuse-card>
+                    
+
+                    <fuse-card class="flex items-center max-w-80 w-full p-6 filter-info">
+                        <div class="w-20 h-20 mr-6 flex items-center justify-center rounded-full bg-primary-100 dark:bg-gray-600 text-indigo-600 text-2xl font-bold">
+                            2
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="text-2xl font-semibold leading-tight">{{t("Transparency")}}</div>
+                            <div class="text-md text-secondary">{{t("Ensuring accuracy and clarity in all transactions")}}</div>
+                        </div>
+                    </fuse-card>
+                    
+                    <fuse-card class="flex items-center max-w-80 w-full p-6 filter-info">
+                        <div class="w-20 h-20 mr-6 flex items-center justify-center rounded-full bg-primary-100 dark:bg-gray-600 text-indigo-600 text-2xl font-bold">
+                            3
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="text-2xl font-semibold leading-tight">{{t("Respect")}}</div>
+                            <div class="text-md text-secondary">{{t("Valuing diversity of opinions and respecting others' rights")}}</div>
+                        </div>
+                    </fuse-card>
+                </div>
+                <!-- second row -->
+                <div class="flex flex-col gap-2 xl:gap-2 lg:flex-row lg:justify-between mt-8">
+                    <fuse-card class="flex items-center max-w-80 w-full p-6 filter-info">
+                        <div class="w-20 h-20 mr-6 flex items-center justify-center rounded-full bg-primary-100 dark:bg-gray-600 text-indigo-600 text-2xl font-bold">
+                            4
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="text-2xl font-semibold leading-tight">{{t("Professionalism")}}</div>
+                            <div class="text-md text-secondary">{{t("Embracing talent, diversity, and creativity to achieve excellence")}}</div>
+                        </div>
+                    </fuse-card>
+
+                    <fuse-card class="flex items-center max-w-80 w-full p-6 filter-info">
+                        <div class="w-20 h-20 mr-6 flex items-center justify-center rounded-full bg-primary-100 dark:bg-gray-600 text-indigo-600 text-2xl font-bold">
+                            5
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="text-2xl font-semibold leading-tight">{{t("Leadership")}}</div>
+                            <div class="text-md text-secondary">{{t("Guiding through dissemination of science and knowledge")}}</div>
+                        </div>
+                    </fuse-card>
+                    
+                    <fuse-card class="flex items-center max-w-80 w-full p-6 filter-info">
+                        <div class="w-20 h-20 mr-6 flex items-center justify-center rounded-full bg-primary-100 dark:bg-gray-600 text-indigo-600 text-2xl font-bold">
+                            6
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="text-2xl font-semibold leading-tight">{{t("Confidence")}}</div>
+                            <div class="text-md text-secondary">{{t("Building lasting, strong relationships with our students")}}</div>
+                        </div>
+                    </fuse-card>
+                </div>
+            </div>
+        </section>
+        <!-- REVIEWS SECTION -->
+        <section class=" py-14 lg:py-24 bg-gray-50" *transloco="let t">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+                <div class="mb-16 rounded-full">
+                    <h2 class="text-4xl font-manrope font-bold text-gray-900 text-center">{{t("What our happy users says!")}}</h2>
+                </div>
+                <div class="cards-container flex justify-center items-center flex-wrap">
+
+                    <fuse-card class="flex flex-col max-w-80 w-full filter-testimonial">
+                        <div class="text-lg italic leading-relaxed p-8">
+                            {{t("MSK-Academy has given me the opportunity to share my expertise to a broad audience of learners, enabling me to make a meaningful impact while connecting with candidates.")}}
+                        </div>
+                        <div class="flex flex-col items-center text-md font-medium bg-primary text-on-primary px-8 py-6 mt-4">
+                            <span class="relative -mt-14 mb-4 p-1 bg-card rounded-full">
+                                <img
+                                    class="w-14 h-14 rounded-full"
+                                    src="assets\images\avatars\brian-hughes.jpg"
+                                    alt="Card cover image">
+                            </span>
+                            <span class="text-md">Brian Hughes</span>
+                            <span class="text-sm text-primary-300">{{t("Tutor")}}</span>
+                        </div>
+                    </fuse-card>
+
+                    <fuse-card class="flex flex-col max-w-80 w-full filter-testimonial">
+                        <div class="text-lg italic leading-relaxed p-8">
+                            {{t("MSK-Academy's costumer support and user-friendly application have made learning convenient and enjoyable for people. The ability to interact with tutors is a game-changer!")}}
+                        </div>
+                        <div class="flex flex-col items-center text-md font-medium bg-primary text-on-primary px-8 py-6 mt-4">
+                            <span class="relative -mt-14 mb-4 p-1 bg-card rounded-full">
+                                <img
+                                    class="w-14 h-14 rounded-full"
+                                    src="assets\images\avatars\female-03.jpg"
+                                    alt="Card cover image">
+                            </span>
+                            <span class="text-md">Amelia Edwards</span>
+                            <span class="text-sm text-primary-300">{{t("Blog Writer")}}</span>
+                        </div>
+                    </fuse-card>
+
+                    <fuse-card class="flex flex-col max-w-80 w-full filter-testimonial">
+                        <div class="text-lg italic leading-relaxed p-8">
+                            {{t("Having access to top-quality courses & while also earning badges to show off my skills is amazing. These flexible learning options and valuable certificates have transformed my experience.")}}
+                        </div>
+                        <div class="flex flex-col items-center text-md font-medium bg-primary text-on-primary px-8 py-6 mt-4">
+                            <span class="relative -mt-14 mb-4 p-1 bg-card rounded-full">
+                                <img
+                                    class="w-14 h-14 rounded-full"
+                                    src="assets/images/cards/avatar-400x400.jpg"
+                                    alt="Card cover image">
+                            </span>
+                            <span class="text-md">Melissa Morillo</span>
+                            <span class="text-sm text-primary-300">{{t("Candidate")}}</span>
+                        </div>
+                    </fuse-card>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

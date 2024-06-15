@@ -1,1 +1,149 @@
-<p>coursedetails works!</p>
+<body>
+    <div class="programDetailContent">
+      <div>
+        <div class="programPage">
+          <div class="programHeroSection">
+            <div class="container contentContainer">
+              <div class="row">
+                <!-- <span class="textLabel" style="background-color: rgb(251, 248, 236);color: #8f2ddf;">Category TitleEn
+                </span> -->
+                <div class="heroContent">
+                  <h1 class="heroTitle">{{ course.TitleCourse }}</h1>
+                  <p class="heroDescription">
+                    {{ course.Subtitle }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Navigation bar -->
+          <div class="container contentContainer" *transloco="let t">
+            <div class="row">
+              <div class="sectionsTabs">
+                <div class="row">
+                  <div class="tabs">
+                    <div   href="#" fragment="descriptionSection1" class="sectionsTab">{{t("Description")}}</div>
+                    <div   href="#" fragment="lessonsSection" class="sectionsTab">{{t("Included lessons")}}</div>
+                    <div   href="#" fragment="tutorSection" class="sectionsTab">{{t("Tutor")}}</div>
+                    <!-- <a ng-href="#descriptionSection1" class="sectionsTab">Description</a>
+                    <a ng-href="#lessonssSection" class="sectionsTab">Included lessons</a>
+                    <a ng-href="#tutorSection" class="sectionsTab">Tutor</a> -->
+                  </div>
+                </div>
+              </div>
+              <!-- Course Description -->
+              <div id="descriptionSection1" class="col-sm-12 col-md-12">
+                <div class="programSection descriptionSection">
+                  <div class="row col-md-6">
+                    <h2 class="sectionTitle">{{t("Description")}}</h2>
+                    <div class="programSectionContent">
+                      <div class="collapseContainer">
+                        <div [ngClass]="isExpanded ? 'collapseContent expanded' : 'collapseContent'"
+                          style="min-height: 140px;">
+                          <div class="overlay"></div>
+                          <p class="descriptionParagraph">
+                            {{ course.DescriptionCourse }}
+
+                          </p>
+                        </div>
+                        <button class="btn btn-outline-secondary btn-rounded expandBtn" (click)="toggleDescription()">
+                          {{ isExpanded ? t('Read less') : t('Read more') }}
+                        </button>                      
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6 enrollColumn">
+                    <div class="programDetailsCard">
+                      <img class="programImg"
+                        src="{{  getCoursePicture(course.PictureCourse) }}"
+                        alt="program image" />
+                      <div class="detailsContainer">
+                        <span class="programPace">{{t("Self-paced course, you can start learning now")}}</span>
+                        <h5 class="difficultyTitle">{{t("Duration:")}}</h5>
+                        <p> {{ course.DurationHour}} Hours</p>
+                        <h5 class="difficultyTitle">{{t("Benefits:")}}</h5>
+                        <div class="programDetailsBullets">
+                          <ul>
+                            <li class="bulletItem">{{t("Lifetime access to course resources")}}</li>
+                            <li class="bulletItem">{{t("Live sessions")}}</li>
+                            <li class="bulletItem">{{t("Exercices and tests")}}</li>
+                            <li class="bulletItem">{{t("Certificate of completion")}}</li>
+                          </ul>
+                        </div>
+                        <button class="btn edraakBtn btn-default btn-rounded btn-lg applyBtn green" (click)="EnrollCourse(idCourse)" *ngIf="IsEnrolled ">
+                          {{t("Continue to course")}}
+                        </button>
+    
+                         <button class="btn edraakBtn btn-default btn-rounded btn-lg applyBtn text-white  bg-purple-700"   (click)="EnrollCourse(idCourse)" *ngIf="IsConnected && !IsEnrolled  ">
+                          {{t("Enroll now")}}
+                        </button> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <!-- Lessons -->
+                <div id="lessonsSection" class="programSection programCoursesSection">
+                  <div class="row">
+                    <h2 class="sectionTitle">{{t("Included lessons")}}</h2>
+                    <div class="programSectionContent">
+                      <div class="programCourses grid grid-cols-3 gap-4" >
+                        <div *ngFor="let lesson of lessons">
+                        <a [routerLink]="['']" >
+                          <fuse-card class="flex flex-col max-w-80 w-full filter-article">
+                            <img class="object-cover" src="{{ getLessonPicture(lesson.PictureLesson) }}" alt="Card cover image">
+                            <div class="m-8">
+                              <div class="text-2xl font-semibold leading-tight">{{ lesson.TitleLesson }}</div>
+                              <div class="text-secondary text-md mt-1">{{ lesson.DescriptionLesson }}</div>
+                            </div>
+                          </fuse-card>
+                        </a>
+                        </div>
+     
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+  
+                <!-- Tutor -->
+                <div id="tutorSection" class="programSection programTeachersSection">
+                  <div class="row">
+                    <h2 class="sectionTitle">{{t("Tutor")}}</h2>
+                    <fuse-card class="flex flex-col items-center max-w-80 w-full p-8 pb-6 filter-info">
+                      <img class="w-32 h-32 rounded-full" src="{{ getTutorPicture(tutor.PictureTutor) }}" alt="Card cover image">
+                      <div class="text-2xl font-semibold leading-tight text-center mt-8">{{ tutor.FullNameTutor}}</div>
+                      <hr class="w-full border-t mt-2 mb-8">
+                      <div class="text-center text-secondary">Hello! I hope you like my course.</div>
+                    </fuse-card>
+                  </div>
+                </div>
+                
+                <!-- Enroll Button -->
+                <div class="programEnrollCard green">
+                  <div class="row">
+                    <div class="textContainer">
+                      <h3 class="title">{{t("Are you ready to dive in?")}}</h3>
+                      <p class="subtitle">
+                        {{t("Enroll now and start learning instantly!")}}
+                      </p>
+                    </div>
+                     
+                    <button class="btn edraakBtn btn-default btn-rounded btn-lg applyBtn green" (click)="EnrollCourse(idCourse)" *ngIf="IsEnrolled ">
+                      {{t("Continue to course")}}
+                    </button>
+
+                     <button class="btn edraakBtn btn-default btn-rounded btn-lg applyBtn blue" (click)="EnrollCourse(idCourse)" *ngIf="IsConnected && !IsEnrolled  ">
+                      {{t("Enroll now")}}
+                    </button> 
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>

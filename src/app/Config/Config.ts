@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class Config {
 
-  ServerPath: string  = "https://localhost:5068/";
+  ServerPath: string  = "https://localhost:44396/";
   AngularPath: string = "http://localhost:4200/";
   assetsPath: string = "assets/";
   ServerLinkPagination: string ="";
@@ -47,31 +47,39 @@ export class Config {
     switch(folder) { 
       
       case 'users': case 'employee':  { 
-        return p+"assets/images/Users/";
+        return p+"Assets/Images/Users/";
          break; 
       } 
       case 'courses': { 
-        return p+"assets/images/Courses/";
+        return p+"Assets/Images/CoursesImages/";
          break; 
       } 
+
+      case 'lessons': { 
+        return p+"Assets/Images/LessonsImages/";
+         break; 
+      } 
+
+      case 'meets': { 
+        return p+"Assets/Images/Meets/";
+         break; 
+      } 
+
       case 'events': { 
-        return p+"assets/images/Events/"; 
+        return p+"Assets/Images/Events/"; 
         break; 
       } 
-      case 'languages': { 
-        return p+"assets/images/Languages/"; 
-        break; 
-      }
-      case 'lessons': { 
-        return p+"assets/images/Lessons/"; 
-        break; 
-      }
+     
       case 'sliders': { 
         return p+"assets/images/sliders/"; 
         break; 
       }
       case 'Units': { 
         return p+"assets/images/Units/"; 
+        break; 
+      }
+      case 'categories': { 
+        return p+"Assets/Images/Categories/"; 
         break; 
       } 
       default: { 
@@ -92,7 +100,7 @@ getVideoPath(folder : string): string{
   switch(folder) { 
  
     case 'lessons': { 
-      return p+"/assets/videos/Lessons_videos/";
+      return p+"/Assets/Videos/LessonsVideos/";
        break; 
     } 
  
@@ -112,7 +120,12 @@ getFilePath(folder : string): string{
   switch(folder) { 
  
     case 'streams': { 
-      return p+"assets/files/Streams_files/";
+      return p+"Assets/Files/StreamsFiles/";
+       break; 
+    } 
+
+    case 'lessons': { 
+      return p+"Assets/Files/LessonsFiles/";
        break; 
     } 
  
@@ -232,17 +245,17 @@ getFilePath(folder : string): string{
   }
 
 
-  hasPermission(n : number) : boolean{
+  // hasPermission(n : number) : boolean{
    
-    let p : string = this.decryptToken();
-    //console.log("Permissions = "+p);
+  //   //let p : string = this.decryptToken();
+  //   //console.log("Permissions = "+p);
 
-    if(p.indexOf(n.toString())>-1){
-      return true;
-    }else{
-      return false;
-    }
-  }
+  //   if(p.indexOf(n.toString())>-1){
+  //     return true;
+  //   }else{
+  //     return false;
+  //   }
+  // }
 
   PageAdminPermission(page : string) : boolean{
     // all page name same AppRouting
@@ -282,20 +295,20 @@ getFilePath(folder : string): string{
     }
 }
 
-TestHasPermission(page: string) : boolean {
-  //console.log(page);
-  var splitted = page.split("/", -1); 
-  //console.log(splitted);
-  //console.log(" Token= "+this.hasPermission(3)+' Page = '+this.PageAdminPermission(splitted[1]));
+// TestHasPermission(page: string) : boolean {
+//   //console.log(page);
+//   var splitted = page.split("/", -1); 
+//   //console.log(splitted);
+//   //console.log(" Token= "+this.hasPermission(3)+' Page = '+this.PageAdminPermission(splitted[1]));
  
-    if( this.PageAdminPermission(splitted[1]) == this.hasPermission(3)){
-      return true;
-    }else{
-      return false;
-      //console.log("PagePermission no "+this.PageAdminPermission(splitted[1]));
-    }
+//     // if( this.PageAdminPermission(splitted[1]) == this.hasPermission(3)){
+//     //   return true;
+//     // }else{
+//     //   return false;
+//     //   //console.log("PagePermission no "+this.PageAdminPermission(splitted[1]));
+//     // }
   
   
-}
+// }
 
 } // end

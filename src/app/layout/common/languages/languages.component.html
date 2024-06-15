@@ -9,7 +9,8 @@
 <mat-menu
     [xPosition]="'before'"
     #languages="matMenu">
-    <ng-container *ngFor="let lang of availableLangs; trackBy: trackByFn">
+    <ng-container *ngFor="let lang of myLang; trackBy: trackByFn">
+        <!-- <ng-container *ngFor="let lang of availableLangs; trackBy: trackByFn"> -->
         <button
             mat-menu-item
             (click)="setActiveLang(lang.id)">

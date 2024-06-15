@@ -28,6 +28,11 @@ export class UserComponent implements OnInit, OnDestroy
     @Input() showAvatar: boolean = true;
     user: User;
 
+    userAvatar : string = localStorage.getItem('photo')!;
+    userStatus  : string  = localStorage.getItem('status')!;
+    userEmail  : string = localStorage.getItem('Email')!;
+
+
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**

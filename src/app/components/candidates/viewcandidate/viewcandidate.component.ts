@@ -76,6 +76,8 @@ export class ViewcandidateComponent implements AfterViewInit, OnInit {
       //'isPremium',
       //'premiumExpiry',
       //'lastConnection',
+      'fieldOfStudy',
+      'parent',
       'actions',
       'status',
   ];
@@ -249,6 +251,8 @@ export interface CandidateElement {
   isPremium?: boolean;
   premiumExpiry?: Date;
   lastConnection?: Date;
+  fieldOfStudy: string;
+  parent?: string;
   status?: boolean;
 }
 
@@ -276,6 +280,8 @@ const ELEMENT_DATA: CandidateElement[] = [
       isPremium: false,
       premiumExpiry: new Date(2025, 6, 15),
       lastConnection: new Date(2023, 5, 31),
+      fieldOfStudy: 'Computer Science',
+      parent: 'Ezdin Boussarsar',
       status: true,
   },
   {
@@ -301,6 +307,8 @@ const ELEMENT_DATA: CandidateElement[] = [
       isPremium: false,
       premiumExpiry: new Date(),
       lastConnection: new Date(2024, 3, 27),
+      fieldOfStudy: 'Computer Science',
+      parent: 'Baderdin Kout',
       status: false,
   },
   {
@@ -326,6 +334,8 @@ const ELEMENT_DATA: CandidateElement[] = [
       isPremium: true,
       premiumExpiry: new Date(2023, 11, 31),
       lastConnection: new Date(2021, 6, 5),
+      fieldOfStudy: 'Software Engineering',
+      parent: '',
       status: true,
   },
 ];
