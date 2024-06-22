@@ -60,6 +60,11 @@ export class Config {
          break; 
       } 
 
+      case 'badges': { 
+        return p+"Assets/Images/Badges/";
+         break; 
+      } 
+
       case 'meets': { 
         return p+"Assets/Images/Meets/";
          break; 

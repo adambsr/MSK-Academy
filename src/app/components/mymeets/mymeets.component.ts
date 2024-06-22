@@ -63,20 +63,20 @@ import { MeetsService } from 'app/Services/meets.service';
 export class MymeetsComponent implements AfterViewInit, OnInit {
 
     public Config: Config = new Config();
-
     APIUrl: string = this.Config.getAPIPath();
-    idCourse : number;
+
+    idCourse: number;
 
     displayedColumns: string[] = [
-        'position',
+        // 'position',
+        'pictureCourse',
         'titlemeet',
         'linkmeet',
         'datemeet',
-        'titlecourse',
-        'titletutor',
-        'starttime',
-        'duration',
-        'actions',
+        // 'titletutor',
+        // 'starttime',
+        // 'duration',
+        // 'actions',
     ];
 
     dataSource = new MatTableDataSource<MeetsElement>(ELEMENT_DATA);
@@ -89,8 +89,9 @@ export class MymeetsComponent implements AfterViewInit, OnInit {
     ) {
 
         this.route.params.subscribe((params: Params) => {
-            this.idCourse = params['idCourse'];}
-            );
+            this.idCourse = params['idCourse'];
+        }
+        );
     }
 
     @ViewChild(MatTable) table: MatTable<MeetsElement>;
@@ -136,6 +137,10 @@ export class MymeetsComponent implements AfterViewInit, OnInit {
         console.log(this.filteredOptions);
         this.dataSource = new MatTableDataSource<MeetsElement>(this.Meets);
         this.getMeets();
+    }
+
+    getPictureCourse(PictureCourse: string): string {
+        return this.Config.getPhotoPath('courses') + PictureCourse;
     }
 
     getMeets() {

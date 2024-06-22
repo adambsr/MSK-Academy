@@ -1,0 +1,81 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Header -->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
+                    *transloco="let t">
+                    {{ t("Add Badge") }}
+                </h2>
+            </div>
+        </div>
+    </div>
+    <style>
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+    </style>
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+        <div class="max-w-8xl">
+            <h2 class="text-2xl md:text-3xl font-extrabold leading-7 sm:leading-10 truncate" *transloco="let t">
+                {{ t("Please fill the form:") }}
+            </h2>
+
+            <form class="flex flex-col mt-8 p-8 pb-4 bg-card rounded-2xl shadow overflow-hidden" *transloco="let t"
+                [formGroup]="badgeForm" #badgeNgForm="ngForm">
+
+                <!-- Name & Description -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Name -->
+                    <mat-form-field [ngClass]="formFieldHelpers">
+                        <mat-label>{{ t('Badge name')}}</mat-label>
+                        <input matInput type="text" [formControlName]="'NameBadge'">
+                    </mat-form-field>
+                    <!-- Subtitle -->
+                    <mat-form-field [ngClass]="formFieldHelpers">
+                        <mat-label>{{ t('Badge description')}}</mat-label>
+                        <input matInput type="text" [formControlName]="'DescriptionBadge'">
+                    </mat-form-field>
+                </div>
+
+                <!-- Criteria to Earn Badge -->
+                <div class="grid grid-cols-1 gap-6">
+                    <mat-form-field [ngClass]="formFieldHelpers">
+                        <mat-label>{{ t("Criteria to Earn") }}</mat-label>
+                        <textarea matInput required [formControlName]="'Criteria'"></textarea>
+                    </mat-form-field>
+                </div>
+
+                <!-- Upload Photo -->
+                <div class="form-group margin-bottom10">
+                    <div class="col-md-12">
+                        <div class="">
+                            <mat-label *transloco="let t">{{
+                                t("Upload Photo")
+                                }}</mat-label>
+                            <input type="file" class="form-control height50 txt-22 btnUploadImg"
+                                (change)="uploadPhoto($event)" />
+                        </div>
+                        <!-- Uploaded Photo Preview -->
+                        <img src="{{ photo }}" class="w-64 ..." height="150px" width="200px" />
+                    </div>
+                </div>
+
+                <!-- Submit and Reset Buttons -->
+                <div class="button-container">
+                    <button mat-flat-button type="reset" class="reset-button" color="warn">
+                        {{ t("Reset") }}
+                    </button>
+                    <button mat-flat-button type="submit" class="submit-button" color="primary" (click)="submit()">
+                        {{ t("Add badge") }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

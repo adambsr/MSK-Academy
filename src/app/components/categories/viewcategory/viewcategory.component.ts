@@ -95,15 +95,6 @@ export class ViewcategoryComponent implements AfterViewInit, OnInit {
         private CategoriesService : CategoriesService
     ) {}
 
-    // openCategoryrModal(category: CategoryElement): void {
-    //     const dialogRef = this.dialog.open(CategoryModalComponent, {
-    //         width: '400px',
-    //         data: { category: category },
-    //     });
-    // }
-
-   
-
     @ViewChild(MatTable) table: MatTable<CategoryElement>;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;

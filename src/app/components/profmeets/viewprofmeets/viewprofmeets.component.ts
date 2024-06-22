@@ -71,7 +71,7 @@ export class ViewprofmeetsComponent implements AfterViewInit, OnInit {
       //'Active',
   ];
 
-  dataSource = new MatTableDataSource<MeetsElement>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<Meets>();
 
   constructor(
       private router: Router,
@@ -82,31 +82,19 @@ export class ViewprofmeetsComponent implements AfterViewInit, OnInit {
       private MeetsService : MeetsService
   ) {}
 
-  // openCategoryrModal(category: CategoryElement): void {
-  //     const dialogRef = this.dialog.open(CategoryModalComponent, {
-  //         width: '400px',
-  //         data: { category: category },
-  //     });
-  // }
 
- 
-
-  @ViewChild(MatTable) table: MatTable<MeetsElement>;
+  @ViewChild(MatTable) table: MatTable<Meets>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  toggleActiveState(element: MeetsElement) {
-      element.status = !element.status;
-      // Optionally, trigger any additional actions here, such as updating the state in the backend.
-  }
 
-  openEditCoursePage(element: any) {
+  openEditMeetPage(element: any) {
       // Assuming `element` has an `id` property you want to pass to the edit route
-      this.router.navigate(['Admin/profmeets/edit/'+element.IdCateg]);
+      this.router.navigate(['dashboard/profmeets/edit/'+element.IdMeet]);
   }
 
   openAddMeetPage() {
-      this.router.navigate(['Admin/profmeets/Add']);
+      this.router.navigate(['dashboard/profmeets/add']);
   }
 
   ngAfterViewInit() {
@@ -142,9 +130,7 @@ export class ViewprofmeetsComponent implements AfterViewInit, OnInit {
       this.getMeets();
   }
 
-
   getMeets(){
-
       this.MeetsService.getMeets().subscribe(
           (res: any) => {
             this.Meets = res;
@@ -166,7 +152,6 @@ export class ViewprofmeetsComponent implements AfterViewInit, OnInit {
             }
           }
         );
-
   }
 
   changeActive(id,active){
@@ -307,30 +292,4 @@ export class ViewprofmeetsComponent implements AfterViewInit, OnInit {
       );
   }
 }
-
-
-
-export interface MeetsElement {
-  position: number;
-  TitleCourse: string;
-  Subtitle: string;
-  Description: string;
-  Duration: string;
-  IdCateg: string;
-  
-  status?: boolean;
-  // Active: number;
-}
-
-const ELEMENT_DATA: MeetsElement[] = [
-  {
-      position: 1,
-      TitleCourse: 'développement web',
-      Subtitle: 'Angular',
-      Duration: '2',
-      Description: 'Tout ce qui concerne le développement web',
-      IdCateg: 'programmation',
-     
-  },
-];
   

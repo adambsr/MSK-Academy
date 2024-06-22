@@ -25,8 +25,13 @@
 
     <!-- Main -->
     <div class="flex flex-auto   sm:p-10">
-
         <div class="flex flex-col flex-auto w-full max-w-xs sm:max-w-5xl mx-auto">
+            <div class="mt-2 text-4xl sm:text-7xl font-extrabold tracking-loose leading-tight text-center mb-2">
+                Top courses
+            </div>
+            <div class="text-2xl text-center mb-4">
+                Explore the most engaging courses.
+            </div>
             <!-- Filters -->
             <div class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none">
                 <mat-form-field class="w-full sm:w-36 " [subscriptSizing]="'dynamic'">
@@ -195,129 +200,127 @@
                     <div class="mt-6 text-2xl font-semibold tracking-tight text-secondary">No courses found!</div>
                 </div>
             </ng-template>
+            <!-- Candidates leaderboard -->
+            <div class="flex flex-col items-center p-6 sm:p-10">
+                <div class="flex flex-col w-full max-w-4xl">
+                    <div class="mt-2 text-4xl sm:text-7xl font-extrabold tracking-loose leading-tight text-center mb-2">
+                        Candidates leaderboard
+                    </div>
+                    <div class="text-2xl text-center mb-4">
+                        Meet our top candidates!
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 sm:mt-10 bg-White">
+                        <fuse-card class="flex flex-col items-center max-w-80 w-full p-8 pb-6 filter-info bg-gray-50">
+                            <img class="w-32 h-32 rounded-full" src="assets/images/avatars/adam.png" alt="Adam Picture">
+                            <div class="text-2xl font-semibold leading-tight text-center mt-8">Adam Boussarsar
+                            </div>
+                            <div class="text-secondary leading-tight text-center mt-1">Tunisia, Sfax</div>
+                            <hr class="w-full border-t mt-2 mb-5">
+                            <div class="text-center text-secondary mb-1">Top 1# in Angular</div>
+                            <div class="text-center text-secondary mb-1">Score: 420</div>
+                        </fuse-card>
+
+                        <fuse-card class="flex flex-col items-center max-w-80 w-full p-8 pb-6 filter-info bg-gray-50">
+                            <img class="w-32 h-32 rounded-full" src="assets/images/avatars/afra.png" alt="Afra Picture">
+                            <div class="text-2xl font-semibold leading-tight text-center mt-8">Afra Kout</div>
+                            <div class="text-secondary leading-tight text-center mt-1">Tunisia, Zarzis</div>
+                            <hr class="w-full border-t mt-2 mb-5">
+                            <div class="text-center text-secondary mb-1">Top 1# in UX/UI</div>
+                            <div class="text-center text-secondary mb-1">Score: 111</div>
+                        </fuse-card>
+
+                        <fuse-card class="flex flex-col items-center max-w-80 w-full p-8 pb-6 filter-info bg-gray-50">
+                            <img class="w-32 h-32 rounded-full" src="assets/images/avatars/female-04.jpg"
+                                alt="Ayla Picture">
+                            <div class="text-2xl font-semibold leading-tight text-center mt-8">Ayla Boussarsar</div>
+                            <div class="text-secondary leading-tight text-center mt-1">Germany, Frankfurt</div>
+                            <hr class="w-full border-t mt-2 mb-5">
+                            <div class="text-center text-secondary mb-1">Top 1# in Graphic Design</div>
+                            <div class="text-center text-secondary mb-1">Score: 836</div>
+                        </fuse-card>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
 
     <!-- ************** -->
 
-    <div class="flex flex-col flex-auto   ">
-
+    <div class="flex flex-col flex-auto">
         <!-- Main -->
         <div class="flex flex-col items-center p-6 sm:p-10">
             <div class="flex flex-col w-full max-w-4xl">
-                <div class="-ml-4 sm:mt-8">
-                    <!-- <a
-                        mat-button
-                        [routerLink]="['../']"
-                        [color]="'primary'">
-                        <mat-icon [svgIcon]="'heroicons_outline:arrow-long-left'"></mat-icon>
-                        <span class="ml-2">Back to Help Center</span>
-                    </a> -->
-                </div>
-                <div class="mt-2 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight">
+                <div class="text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight">
                     <!-- Frequently Asked Questions -->
-                    Les questions fréquemment posées
+                    Frequently asked questions
                 </div>
-                <!-- <ng-container *ngFor="let faqCategory of faqCategories; trackBy: trackByFn"> -->
-                <!-- <ng-container *ngFor="let faqCategory of faqCategories; ">
-                    <div class="mt-12 sm:mt-16 text-3xl font-bold leading-tight tracking-tight">{{faqCategory.title}}</div>
-                    <mat-accordion class="max-w-4xl mt-8">
-                          <ng-container *ngFor="let faq of faqCategory.faqs; trackBy: trackByFn"> 
-                        <ng-container *ngFor="let faq of faqCategory.faqs;">
-                            <mat-expansion-panel>
-                                <mat-expansion-panel-header [collapsedHeight]="'56px'">
-                                    <mat-panel-title class="font-medium leading-tight">{{faq.question}}</mat-panel-title>
-                                </mat-expansion-panel-header>
-                                {{faq.answer}}
-                            </mat-expansion-panel>
-                        </ng-container>
-                    </mat-accordion>
-                </ng-container> 
-                 -->
-
                 <ng-container>
-                    <div class="mt-12 sm:mt-16 text-3xl font-bold leading-tight tracking-tight"> Les Qustions genérales
-                    </div>
+                    <div class="mt-12 sm:mt-16 text-3xl font-bold leading-tight tracking-tight">General questions</div>
                     <mat-accordion class="max-w-4xl mt-8 bg-gray-50 dark:bg-transparent">
 
                         <ng-container>
                             <mat-expansion-panel>
                                 <mat-expansion-panel-header [collapsedHeight]="'56px'">
-                                    <mat-panel-title class="font-medium leading-tight">Quel est le public cible du cours
-                                        en ligne ?</mat-panel-title>
+                                    <mat-panel-title class="font-medium leading-tight">Who is the target audience for
+                                        our online courses?</mat-panel-title>
                                 </mat-expansion-panel-header>
-                                Des étudiants et des éléves a partir de première année Secondaire, des travailleurs en
-                                reconversion, des professionnels spécialisés dans un domaine particulier, etc
+                                Students and pupils from the first year of secondary school upwards, retraining workers
+                                professionals specializing in a particular field, etc.
                             </mat-expansion-panel>
                         </ng-container>
-
 
                         <ng-container>
                             <mat-expansion-panel>
                                 <mat-expansion-panel-header [collapsedHeight]="'56px'">
-                                    <mat-panel-title class="font-medium leading-tight">Comment puis-je m'inscrire sur la
-                                        plateforme ? </mat-panel-title>
+                                    <mat-panel-title class="font-medium leading-tight">How can I register on the
+                                        platform?</mat-panel-title>
                                 </mat-expansion-panel-header>
-                                Vous pouvez vous inscrire en cliquant sur le bouton "Get started" en haut à droite de la
-                                page d'accueil et en remplissant le formulaire d'inscription avec vos informations.
+                                You can register by clicking on the "Get started" button in the top right-hand corner of
+                                the home page and filling in the registration form with your details.
                             </mat-expansion-panel>
                         </ng-container>
-
-
                     </mat-accordion>
                 </ng-container>
 
                 <ng-container>
-                    <div class="mt-12 sm:mt-16 text-3xl font-bold leading-tight tracking-tight">Les Qustions des
-                        specialistes</div>
+                    <div class="mt-12 sm:mt-16 text-3xl font-bold leading-tight tracking-tight">Expert questions</div>
                     <mat-accordion class="max-w-4xl mt-8 bg-gray-50 dark:bg-transparent">
 
                         <ng-container>
                             <mat-expansion-panel>
                                 <mat-expansion-panel-header [collapsedHeight]="'56px'">
-                                    <mat-panel-title class="font-medium leading-tight">Quels sont les types de contenu
-                                        (vidéos, textes, quiz, etc.) qui seront inclus dans le cours ?</mat-panel-title>
+                                    <mat-panel-title class="font-medium leading-tight">What's the type of content
+                                        included in your courses?</mat-panel-title>
                                 </mat-expansion-panel-header>
-                                Il ya plusieurs resources Texte , video , Images , PDF , Quiz
-                            </mat-expansion-panel>
-                        </ng-container>
-
-
-                        <ng-container>
-                            <mat-expansion-panel>
-                                <mat-expansion-panel-header [collapsedHeight]="'56px'">
-                                    <mat-panel-title class="font-medium leading-tight">Combien de temps ai-je accès au
-                                        contenu du cours après mon inscription ?</mat-panel-title>
-                                </mat-expansion-panel-header>
-                                Une fois inscrit, vous avez un accès illimité au contenu du cours pour la durée indiquée
-                                sur la plateforme
+                                Our courses include different resources such as text, videos, images, PDFs, quizzes,
+                                etc.
                             </mat-expansion-panel>
                         </ng-container>
 
                         <ng-container>
                             <mat-expansion-panel>
                                 <mat-expansion-panel-header [collapsedHeight]="'56px'">
-                                    <mat-panel-title class="font-medium leading-tight">Les cours sont-ils disponibles
-                                        dans différentes langues ?</mat-panel-title>
+                                    <mat-panel-title class="font-medium leading-tight">How long do I have access to the
+                                        course content after enrolling?</mat-panel-title>
                                 </mat-expansion-panel-header>
-                                Nos cours sont disponibles en anglais, arabe et français
+                                Once enrolled, you will have unlimited access to the course.
                             </mat-expansion-panel>
                         </ng-container>
 
+                        <ng-container>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header [collapsedHeight]="'56px'">
+                                    <mat-panel-title class="font-medium leading-tight">Are the courses
+                                        multilingual?</mat-panel-title>
+                                </mat-expansion-panel-header>
+                                Yes, our courses are available in English, Arabic and French.
+                            </mat-expansion-panel>
+                        </ng-container>
                     </mat-accordion>
                 </ng-container>
-
-
-
-
             </div>
         </div>
-
         <div class="h-50" style="height: 50px;"></div>
-
-
-
     </div>
-
 </div>

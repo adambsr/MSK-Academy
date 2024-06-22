@@ -29,7 +29,6 @@
 
       <form class="flex flex-col mt-8 p-8 pb-4 bg-card rounded-2xl shadow overflow-hidden" *transloco="let t"
         [formGroup]="lessonForm" #userNgForm="ngForm">
-
         <!-- Title & Subtitle -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <!-- Title -->
@@ -92,44 +91,6 @@
           <!-- Uploaded Photo Preview -->
           <img src="{{ photo }}" class="w-64 ..." height="150px" width="200px" />
         </div>
-
-        <!-- Upload Videos -->
-        <!-- <div class="form-group margin-bottom10">
-          <div class="col-md-12">
-            <h2><b>{{t("Upload lesson videos")}}</b></h2>
-            <input type="file" class="form-control height50 " id="video" name="video" ngModel required #video="ngModel"
-            accept="video/mp4,video/x-m4v" (change)="uploadVideo($event)" style="display: block; margin-top: 5px;" />
-            <span style="color: red;" *ngIf="!video.valid && video.touched">Must upload videos!</span>
-          </div>
-        </div> -->
-
-        <!-- Upload Files -->
-        <!-- <div class="form-group margin-bottom10">
-          <div class="col-md-12">
-            <h2><b>{{t("Upload lesson files")}}</b></h2>
-            <input type="file" class="form-control height40 " id="myFile" name="myFile" ngModel #myFile="ngModel"
-            accept="application/pdf" (change)="uploadFile($event)" style="display: block; margin-top: 5px;" />
-            <span style="color: red;" *ngIf="!myFile.valid && myFile.touched"> Must upload files! </span>
-          </div>
-        </div>
-
-        <table>
-          <tr *ngFor="let item of myFiles">
-            <td class="name">{{ item }}</td>
-            <td class="delete"><button (click)="DeleteFile(item)">Delete</button></td>
-          </tr>
-        </table>
-        <div class="progress form-group" *ngIf="progress > 0">
-          <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
-          </div>
-        </div>
-
-        <table>
-          <tr *ngFor="let item of myVideos">
-            <td class="name">{{ item }}</td>
-            <td class="delete"><button (click)="DeleteVideo(item)">Delete</button></td>
-          </tr>
-        </table> -->
         
         <!-- Submit and Reset Buttons -->
         <div class="button-container">

@@ -82,7 +82,7 @@ export const appRoutes: Route[] = [
         },
         children: [
             { path: '',  loadChildren: () => import('./components/users/users.routes') },
-            { path: 'analytics',  loadChildren: () => import('./components/users/users.routes') },
+            // { path: 'analytics',  loadChildren: () => import('./components/users/users.routes') },
             { path: 'users',  loadChildren: () => import('./components/users/users.routes') },
             { path: 'tutors', loadChildren: () => import('./components/tutors/tutors.routes') },
             { path: 'candidates', loadChildren: () => import('./components/candidates/candidates.routes'), },
@@ -92,6 +92,7 @@ export const appRoutes: Route[] = [
             { path: 'parents', loadChildren: () => import('./components/parents/parents.routes'), },
             { path: 'establishments', loadChildren: () => import('./components/establishments/establishments.routes'), },
             { path: 'categories', loadChildren: () => import('./components/categories/categories.routes'), },
+            { path: 'badges', loadChildren: () => import('./components/badges/badges.routes'), },
             { path: 'academy/:id', component: AcademyDetailsComponent },
             { path: 'mycourse/view/:id', component: MycoursesComponent },
             { path: 'mymeets/view/:idCourse', component: MymeetsComponent },

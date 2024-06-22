@@ -16,21 +16,21 @@ export default [
                 path: 'add',
                 component: AddprofmeetsComponent,
                 data: {
-                    title: 'Add profcourses'
+                    title: 'Add courses'
                 }
             },
             {
                 path: 'edit/:id',
                 component: EditprofmeetsComponent,
                 data: {
-                    title: 'Edit establishment'
+                    title: 'Edit courses'
                 }
             },
             {
                 path: 'view/:id',
                 component: ViewprofmeetsComponent,
                 data: {
-                    title: 'View establishment'
+                    title: 'View courses'
                 }
             } 
 

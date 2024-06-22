@@ -101,19 +101,6 @@ export class EditproflessonsComponent {
     );
 
   }
-  // fixedSubscriptInput: FormControl = new FormControl('', [
-  //   Validators.required,
-  // ]);
-  // dynamicSubscriptInput: FormControl = new FormControl('', [
-  //   Validators.required,
-  // ]);
-  // fixedSubscriptInputWithHint: FormControl = new FormControl('', [
-  //   Validators.required,
-  // ]);
-  // dynamicSubscriptInputWithHint: FormControl = new FormControl('', [
-  //   Validators.required,
-  // ]);
-
 
   ngOnInit() {
 

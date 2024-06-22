@@ -7,7 +7,7 @@
             <div class="mt-2">
                 <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
                     *transloco="let t">
-                    {{ t("Categories list") }}
+                    {{ t("Badges list") }}
                 </h2>
             </div>
         </div>
@@ -26,8 +26,8 @@
             </mat-autocomplete>
         </mat-form-field>
 
-        <!-- Add category button -->
-        <button *transloco="let t" mat-raised-button color="primary" (click)="openAddCategoryPage()" class="ml-4">
+        <!-- Add badge button -->
+        <button *transloco="let t" mat-raised-button color="primary" (click)="openAddBadgePage()" class="ml-4">
             <mat-icon>add</mat-icon>
             <span>{{ t("Add") }}</span>
         </button>
@@ -39,89 +39,49 @@
                         Id
                     </th>
                     <td mat-cell *matCellDef="let element" class="w-1/12">
-                        {{ element.IdCateg }}
+                        {{ element.IdBadge }}
                     </td>
                 </ng-container>
 
-                <!-- TitleEn Column -->
-                <ng-container matColumnDef="titleEn" *transloco="let t">
+                <!-- Course Image Column -->
+                <ng-container matColumnDef="photoBadge" *transloco="let t">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
-                        {{ t("Title") }}
+                        {{ t("Badge picture") }}
                     </th>
                     <td mat-cell *matCellDef="let element" class="w-1/6">
-                        {{ element.TitleEn }}
+                        <img [src]="getPhotoBadge(element.PhotoBadge)" alt="Badge Photo">
+                    </td>
+                </ng-container> 
+
+                <!-- Badge Name Column -->
+                <ng-container matColumnDef="nameBadge" *transloco="let t">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
+                        {{ t("Badge name") }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="w-1/6">
+                        {{ element.NameBadge }}
                     </td>
                 </ng-container>
 
-                <!-- TitleFr Column -->
-                <ng-container matColumnDef="titleFr" *transloco="let t">
+                <!-- badge description Column -->
+                <ng-container matColumnDef="descriptionBadge" *transloco="let t">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
-                        {{ t("Title") }}
+                        {{ t("Badge description") }}
                     </th>
                     <td mat-cell *matCellDef="let element" class="w-1/6">
-                        {{ element.TitleFr }}
-                    </td>
-                </ng-container>        
-                
-                <!-- TitleAr Column -->
-                <ng-container matColumnDef="titleAr" *transloco="let t">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
-                        {{ t("Title") }}
-                    </th>
-                    <td mat-cell *matCellDef="let element" class="w-1/6">
-                        {{ element.TitleAr }}
-                    </td>
-                </ng-container>                
-
-                <!-- Description Column -->
-                <ng-container matColumnDef="description" *transloco="let t">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
-                        {{ t("Description") }}
-                    </th>
-                    <td mat-cell *matCellDef="let element" class="w-1/6">
-                        {{ element.Description }}
-                    </td>
-                </ng-container>      
-
-                <!-- Category Image Column -->
-                <ng-container matColumnDef="categoryImage" *transloco="let t">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
-                        {{ t("Category Image") }}
-                    </th>
-                    <td mat-cell *matCellDef="let element" class="w-1/6">
-                        {{ element.Image }}
+                        {{ element.DescriptionBadge }}
                     </td>
                 </ng-container>
 
-                <!-- Color Column -->
-                <ng-container matColumnDef="color" *transloco="let t">
+                <!-- criteria Column -->
+                <ng-container matColumnDef="criteria" *transloco="let t">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
-                        {{ t("Color") }}
+                        {{ t("Criteria to earn") }}
                     </th>
                     <td mat-cell *matCellDef="let element" class="w-1/6">
-                        {{ element.Color }}
+                        {{ element.Criteria }}
                     </td>
-                </ng-container>    
-
-                <!-- Type Column -->
-                <ng-container matColumnDef="type" *transloco="let t">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
-                        {{ t("Type") }}
-                    </th>
-                    <td mat-cell *matCellDef="let element" class="w-1/6">
-                        {{ element.Type }}
-                    </td>
-                </ng-container>  
-
-                <!-- Parent Category Column -->
-                <ng-container matColumnDef="IdParentCateg" *transloco="let t">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
-                        {{ t("Parent Category") }}
-                    </th>
-                    <td mat-cell *matCellDef="let element" class="w-1/6">
-                        {{ element.IdParentCateg }}
-                    </td>
-                </ng-container>  
+                </ng-container>
 
                 <!-- Actions Column -->
                 <ng-container matColumnDef="actions" *transloco="let t">
@@ -135,12 +95,12 @@
                             <mat-icon svgIcon="heroicons_outline:trash"></mat-icon>
                         </button>
                         <!-- View Button -->
-                        <!-- <button mat-raised-button color="mat-blue-grey" (click)="openCategoryModal(element)"
+                        <button mat-raised-button color="mat-blue-grey" (click)="openBadgeModal(element)"
                             style="margin-right: 10px">
                             <mat-icon svgIcon="heroicons_outline:information-circle"></mat-icon>
-                        </button> -->
+                        </button>
                         <!-- Edit Button -->
-                        <a mat-raised-button color="primary" (click)="openEditCategoryPage(element)">
+                        <a mat-raised-button color="primary" (click)="openEditBadgePage(element)">
                             <mat-icon svgIcon="heroicons_outline:pencil-square"></mat-icon>
                         </a>
                     </td>
@@ -152,17 +112,12 @@
                         {{ t("Status") }}
                     </th>
                     <td mat-cell *matCellDef="let element" class="w-1/6">
-                        <!-- <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-                            <mat-button-toggle value="bold">{{
-                                t("Enabled")
-                                }}</mat-button-toggle>
-                            <mat-button-toggle value="italic">{{
-                                t("Disabled")
-                                }}</mat-button-toggle>
-                        </mat-button-toggle-group> -->
-                        <!-- {{ t("Enable / Disable") }} -->
-                        <mat-slide-toggle  labelPosition = "before" *ngIf="element.Active==1" [checked]="true"  (change)="changeActive(element.IdCateg,element.Active)" > {{ t("Enable") }} </mat-slide-toggle>  
-                        <mat-slide-toggle  labelPosition = "before" *ngIf="element.Active==null || element.Active<1" [checked]="false"  (change)="changeActive(element.IdCateg,element.Active)" >{{ t("Disable") }} </mat-slide-toggle>
+                        <mat-slide-toggle labelPosition="before" *ngIf="element.Active==1" [checked]="true"
+                            (change)="changeActive(element.IdBadge,element.Active)"> {{ t("Enable") }}
+                        </mat-slide-toggle>
+                        <mat-slide-toggle labelPosition="before" *ngIf="element.Active==null || element.Active<1"
+                            [checked]="false" (change)="changeActive(element.IdBadge,element.Active)">{{ t("Disable") }}
+                        </mat-slide-toggle>
                     </td>
                 </ng-container>
 
@@ -172,13 +127,13 @@
                 <!-- Row shown when there is no matching data in the search form. -->
                 <tr class="mat-row" *matNoDataRow>
                     <td class="mat-cell" colspan="4" *transloco="let t">
-                        {{ t("This category doesn't exist.") }}
+                        {{ t("No badges found.") }}
                     </td>
                 </tr>
             </table>
             <div class="flex justify-end">
                 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-                    aria-label="Select page of users"></mat-paginator>
+                    aria-label="Select page of badges"></mat-paginator>
             </div>
         </div>
     </div>

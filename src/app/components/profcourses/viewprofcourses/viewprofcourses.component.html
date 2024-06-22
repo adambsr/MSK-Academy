@@ -3,23 +3,11 @@
     <div
         class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
         <div class="flex-1 min-w-0">
-            <!-- Breadcrumbs -->
-            <div class="flex flex-wrap items-center font-medium">
-                <div>
-                    <a class="whitespace-nowrap text-primary-500" *transloco="let t">{{ t("Courses interface") }}</a>
-                </div>
-                <div class="flex items-center ml-1 whitespace-nowrap">
-                    <mat-icon class="icon-size-5 text-secondary">chevron_right</mat-icon>
-                    <a class="ml-1 text-primary-500" *transloco="let t">{{
-                        t("Tables")
-                        }}</a>
-                </div>
-            </div>
             <!-- Title -->
             <div class="mt-2">
                 <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate"
                     *transloco="let t">
-                    {{ t("Courses table") }}
+                    {{ t("Courses list") }}
                 </h2>
             </div>
         </div>
@@ -29,7 +17,7 @@
         <!-- Autocomplete Search Form Field -->
         <mat-form-field *transloco="let t">
             <mat-label>{{ t("Search") }}</mat-label>
-            <input type="text" placeholder="Ex. Ahmed" (blur)="applyFilter($event)" matInput [formControl]="myControl"
+            <input type="text" placeholder="Search.." (blur)="applyFilter($event)" matInput [formControl]="myControl"
                 [matAutocomplete]="auto" #input />
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                 @for (option of filteredOptions | async; track option) {
@@ -48,7 +36,7 @@
                 <!-- Id Column -->
                 <ng-container matColumnDef="ID">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/12">
-                        Id.
+                        Id
                     </th>
                     <td mat-cell *matCellDef="let element" class="w-1/12">
                         {{ element.IdCourse }}
@@ -71,7 +59,7 @@
                         {{ t("Subtitle") }}
                     </th>
                     <td mat-cell *matCellDef="let element" class="w-1/6">
-                        {{ element.subtitle }}
+                        {{ element.Subtitle }}
                     </td>
                 </ng-container>  
                 
@@ -82,7 +70,6 @@
                     </th>
                     <td mat-cell *matCellDef="let element" class="w-1/6">
                         <img [src]="getPictureCourse(element.PictureCourse)" alt="Course Picture">
-                        
                     </td>
                 </ng-container> 
                 
@@ -96,13 +83,13 @@
                     </td>
                 </ng-container>                
 
-                <!-- Description Column -->
+                <!-- Duration Column -->
                 <ng-container matColumnDef="Duration" *transloco="let t">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/6">
                         {{ t("Duration") }}
                     </th>
                     <td mat-cell *matCellDef="let element" class="w-1/6">
-                        {{ element.DurationHour}}
+                        {{ element.DurationHour}} hours
                     </td>
                 </ng-container>      
 
@@ -143,8 +130,6 @@
                             <mat-icon svgIcon="heroicons_outline:arrow-top-right-on-square"
                                 class="custom-icon"></mat-icon>
                         </button>
-
-
                     </td>
                 </ng-container>
 
