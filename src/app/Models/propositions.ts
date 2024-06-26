@@ -1,6 +1,5 @@
-export interface Propositions {
+export interface Proposition {
     IdProposition: number;
-    IdQuestion: number;
     PropositionContent: string;
-    isRight: boolean;
-}
+    IsRight: number;
+  }

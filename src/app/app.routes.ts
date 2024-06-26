@@ -4,19 +4,24 @@ import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { AboutusComponent } from './componentPages/aboutus/aboutus.component';
-import { BecometutorComponent } from './componentPages/becometutor/becometutor.component';
+
 import { ContactusComponent } from './componentPages/contactus/contactus.component';
 import { CoursedetailsComponent } from './componentPages/coursedetails/coursedetails.component';
 import { CoursesComponent } from './componentPages/courses/courses.component';
 import { FaqComponent } from './componentPages/faq/faq.component';
 import { HomeComponent } from './componentPages/home/home.component';
-import { SponsorusComponent } from './componentPages/sponsorus/sponsorus.component';
 import { LayoutHomeComponent } from './layoutHome/layoutHome.component';
 import { PrintcertificateComponent } from './components/certificates/printcertificate/printcertificate.component';
 //import { AcademyComponent } from './components/academy/academy.component';
 import { AcademyDetailsComponent } from './components/academy/details.component';
 import { MycoursesComponent } from './components/mycourses/mycourses.component';
 import { MymeetsComponent } from './components/mymeets/mymeets.component';
+import { MybadgesComponent } from './components/mybadges/mybadges.component';
+import { MycertificatesComponent } from './components/mycertificates/mycertificates.component';
+import { ProfileComponent } from 'app/modules/admin/pages/profile/profile.component';
+import { SettingsAccountComponent } from './modules/admin/pages/settings/account/account.component';
+import { AnalyticsComponent } from './modules/admin/dashboards/analytics/analytics.component';
+import { QuizzComponent } from './components/quizz/quizz.component';
 //import { LayoutAdminComponent } from './layoutAdmin/layoutAdmin.component';
 
 // @formatter:off
@@ -52,12 +57,10 @@ export const appRoutes: Route[] = [
         children: [
             { path: 'home', component: HomeComponent },
             { path: 'aboutus', component: AboutusComponent },
-            { path: 'becometutor', component: BecometutorComponent },
             { path: 'contactus', component: ContactusComponent },
             { path: 'courses', component: CoursesComponent },
             { path: 'coursedetails/:id', component: CoursedetailsComponent },
             { path: 'faq', component: FaqComponent },
-            { path: 'sponsorus', component: SponsorusComponent },
         ],
     },
 
@@ -82,25 +85,26 @@ export const appRoutes: Route[] = [
         },
         children: [
             { path: '',  loadChildren: () => import('./components/users/users.routes') },
-            // { path: 'analytics',  loadChildren: () => import('./components/users/users.routes') },
             { path: 'users',  loadChildren: () => import('./components/users/users.routes') },
             { path: 'tutors', loadChildren: () => import('./components/tutors/tutors.routes') },
             { path: 'candidates', loadChildren: () => import('./components/candidates/candidates.routes'), },
             { path: 'profcourses', loadChildren: () => import('./components/profcourses/profcourses.routes'), },
             { path: 'proflessons', loadChildren: () => import('./components/proflessons/proflessons.routes'), },
             { path: 'profmeets', loadChildren: () => import('./components/profmeets/profmeets.routes'), },
-            { path: 'parents', loadChildren: () => import('./components/parents/parents.routes'), },
-            { path: 'establishments', loadChildren: () => import('./components/establishments/establishments.routes'), },
             { path: 'categories', loadChildren: () => import('./components/categories/categories.routes'), },
             { path: 'badges', loadChildren: () => import('./components/badges/badges.routes'), },
             { path: 'academy/:id', component: AcademyDetailsComponent },
             { path: 'mycourse/view/:id', component: MycoursesComponent },
             { path: 'mymeets/view/:idCourse', component: MymeetsComponent },
+            { path: 'mybadges/view/:idBadge', component: MybadgesComponent },
+            { path: 'mycertificates/view/:idCertificate', component: MycertificatesComponent },
+            { path: 'analytics',  component: AnalyticsComponent },
+            { path: 'profile', component: ProfileComponent },
+            { path: 'settings', component: SettingsAccountComponent },
+            { path: 'quizz/:id', component: QuizzComponent},
         ],
     },
 
-    
-   
     // Auth routes for guests
     {
         path: '',

@@ -1,59 +1,55 @@
 <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-400">
-    <div class="overflow-hidden relative" style="height: 794px; width: 1123px;">
+  <div class="overflow-hidden relative" style="height: 794px; width: 1123px;">
 
-      <div class="absolute inset-0 z-0 bg-white border-4 border-dashed border-gray-400"></div>
+    <div class="absolute inset-0 z-0 bg-white border-4 border-dashed border-gray-400"></div>
 
-      <div class="absolute inset-0 z-10 p-8 flex flex-col justify-between">
+    <div class="absolute inset-0 z-10 p-8 flex flex-col justify-between">
 
-        <div class="text-center mb-8">
-          <h1 class="text-3xl font-bold">Certificat de Réussit</h1>
-          <br>
-          <p class="text-gray-600">Attribué à</p>
-          <h1 class="text-xl font-bold">Mr / Ms <b>{{ CandidateName }}</b></h1>
-          <!-- <h5 class="text">Numéro Identité <b>12344478</b></h5> -->
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold">Certificate of completion</h1>
+        <br>
+        <p class="text-gray-600">Issued to</p>
+        <h1 class="text-xl font-bold">Mr / Ms <b>{{ CandidateName }}</b></h1>
+      </div>
+
+      <div class="border-t border-gray-300 my-2"></div>
+
+      <div class="grid grid-cols-2 gap-x-8 mb-8">
+        <div>
+          <p class="text-gray-600">Course:</p>
+          <p class="text-lg font-bold">{{ myCourse.TitleCourse }}</p>
         </div>
 
-
-        <div class="border-t border-gray-300 my-2"></div>
-
-        <div class="grid grid-cols-2 gap-x-8 mb-8">
-          <div>
-            <p class="text-gray-600">Cours :</p>
-            <p class="text-lg font-bold">{{ myCourse.TitleCourse }}</p>
-            <!-- <p class="text-lg font-bold">ASP.NET Core Development</p> -->
-          </div>
-
-          <div>
-            <p class="text-gray-600">Durée:</p>
-            <p class="text-lg font-bold">{{ myCourse.DurationHour }} Hours</p>
-          </div>
-
+        <div>
+          <p class="text-gray-600">Duration:</p>
+          <p class="text-lg font-bold">{{ myCourse.DurationHour }} Hours</p>
         </div>
 
-        <div class="border-t border-gray-300 my-2"></div>
+      </div>
 
-        <div class="grid grid-cols-2 gap-x-8 mb-8">
-          <div>
-            <p class="text-gray-600">Tuteur:</p>
-            <p class="text-lg font-bold"> Mr/ Ms <b> {{ myTutor.FirstName + myTutor.LastName }}</b></p>
-          </div>
-          <div>
-            <p class="text-gray-600">Delivré Le:</p>
-            <p class="text-lg font-bold">{{ today | date:'yyyy-MM-dd' }} </p>
-          </div>
+      <div class="border-t border-gray-300 my-2"></div>
+
+      <div class="grid grid-cols-2 gap-x-8 mb-8">
+        <div>
+          <p class="text-gray-600">Tutor:</p>
+          <p class="text-lg font-bold"> Mr/ Ms <b> {{ myTutor.FirstName + myTutor.LastName }}</b></p>
+        </div>
+        <div>
+          <p class="text-gray-600">Delivered on:</p>
+          <p class="text-lg font-bold">{{ today | date:'yyyy-MM-dd' }} </p>
+        </div>
 
         <div class="flex justify-between mt-8">
           <div>
-            <p class="text-gray-600">Code Verification Certificat :</p>
+            <p class="text-gray-600">Certificate verification code: :</p>
             <div class="w-40 h-8 bg-gray-200 mt-2">XKx5898</div>
           </div>
         </div>
 
       </div>
       <div class="flex justify-center items-end">
-      <h5>MSK-Elearning Platforme - 2024</h5>
+        <h5>MSK Academy - 2024</h5>
       </div>
-
     </div>
-</div>
+  </div>
 </div>

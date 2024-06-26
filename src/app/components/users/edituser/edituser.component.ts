@@ -65,13 +65,6 @@ export class EdituserComponent {
   photoUrl: string = this.Config.getPhotoPath("users");
   photo: string = this.photoUrl + this.photoName;
 
-
-  formFieldHelpers: string[] = [""];
-  fixedSubscriptInput: FormControl = new FormControl("", [Validators.required]);
-  dynamicSubscriptInput: FormControl = new FormControl("", [
-    Validators.required,
-  ]);
-
   constructor(
     private UsersService: UsersService,
     private translocoService: TranslocoService,

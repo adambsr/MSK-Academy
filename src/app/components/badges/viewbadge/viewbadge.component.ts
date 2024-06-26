@@ -55,7 +55,7 @@ import { BadgesService } from 'app/Services/badges.service';
     templateUrl: './viewbadge.component.html',
     styleUrl: './viewbadge.component.scss',
 })
-export class ViewbadgeComponent implements AfterViewInit, OnInit {
+export class ViewbadgeComponent implements OnInit {
 
     public Config: Config = new Config();
     configForm: UntypedFormGroup;

@@ -1,8 +1,9 @@
-export interface Exercices {
+import { Question } from "./question";
+
+export interface Exercice {
     IdExercice: number;
-    IdCourse: number;
     ExerciceTitle: string;
     ExerciceDescription: string;
-    NumberOfQuestions: number;
     Grade: number;
-}
+    Questions: Question[];
+  }

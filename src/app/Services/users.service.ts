@@ -26,11 +26,7 @@ export class UsersService {
   getActiveUsers(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + 'Users/Active'); //Charger tous les countries actifs seulement
   }
-
-  getCities(): Observable<any[]>{
-    return this.http.get<any[]>(this.APIUrl+'Cities');
-  }
-
+  
   getEditUsers(id: number): any {
     console.log(this.APIUrl + 'Users/' + id);
     return this.http.get(this.APIUrl + 'Users/GetEdit/' + id);
@@ -72,6 +68,4 @@ export class UsersService {
   uploadPhoto(val: any): any{
     return this.http.post(this.APIUrl+'users/images',val);
   }
-
-  
 }

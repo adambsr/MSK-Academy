@@ -19,7 +19,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Analytics',
                 type : 'basic',
                 icon : 'heroicons_outline:chart-pie',
-                link : '/dashboards/analytics',
+                link : '/dashboard/analytics',
             },
             {
                 id  : 'divider-2',
@@ -234,7 +234,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'My Badges',
                 type : 'basic',
                 icon : 'heroicons_outline:shield-check',
-                link : '/dashboard/mybadges/view/1',
+                link : 'mybadges/view/1',
             },
             //MY CERTIFICATES
             {
@@ -242,7 +242,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'My Certificates',
                 type : 'basic',
                 icon : 'heroicons_outline:trophy',
-                link : '/dashboard/mycertificates/view/1',
+                link : 'mycertificates/view/1',
             },
         ],
     },
@@ -267,7 +267,29 @@ export const defaultNavigation: FuseNavigationItem[] = [
     //     id  : 'divider-1',
     //     type: 'divider',
     // },
-
+    {
+        id      : 'pages',
+        title   : 'Pages',
+        subtitle: 'Custom made page designs',
+        type    : 'group',
+        icon    : 'heroicons_outline:document',
+        children: [
+            {
+                id   : 'pages.profile',
+                title: 'Profile',
+                type : 'basic',
+                icon : 'heroicons_outline:user-circle',
+                link : 'profile',
+            },
+            {
+                id   : 'pages.settings',
+                title: 'Settings',
+                type : 'basic',
+                icon : 'heroicons_outline:cog-8-tooth',
+                link : 'settings',
+            },
+        ],
+    },
     // {
     //     id      : 'documentation',
     //     title   : 'Documentation',

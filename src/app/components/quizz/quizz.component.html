@@ -1,0 +1,27 @@
+<div class="quiz-container max-w-3xl mx-auto my-6 p-6 rounded-2xl shadow-lg bg-white" *ngIf="exercice">
+  <!-- Quiz header and questions -->
+  <div class="quiz-header mb-6">
+    <h1 class="text-2xl font-bold mb-4">{{ exercice.ExerciceTitle }}</h1>
+    <p class="text-lg text-gray-600">{{ exercice.ExerciceDescription }}</p>
+  </div>
+
+  <div class="quiz-question" *ngIf="currentQuestionIndex < exercice.Questions.length">
+    <h2 class="text-xl font-semibold mt-4">{{ exercice.Questions[currentQuestionIndex].QuestionTitle }}</h2>
+    <p class="text-lg text-gray-700 mb-4">{{ exercice.Questions[currentQuestionIndex].QuestionContent }}</p>
+    
+    <ul class="list-none pl-0">
+      <li *ngFor="let proposition of exercice.Questions[currentQuestionIndex].Propositions" class="mb-3">
+        <label class="flex items-center cursor-pointer">
+          <input type="radio" name="proposition" [value]="proposition.IdProposition" (change)="onPropositionSelect(proposition.IdProposition)" [checked]="proposition.IdProposition === selectedPropositionId" class="mr-2">
+          <span class="text-lg text-gray-800">{{ proposition.PropositionContent }}</span>
+        </label>
+      </li>
+    </ul>
+    
+    <div class="button-container mt-6 flex justify-between">
+      <button *ngIf="currentQuestionIndex > 0" (click)="previousQuestion()" class="btn btn-primary px-4 py-2 rounded-lg shadow bg-blue-500 text-white hover:bg-blue-600">Previous</button>
+      <button *ngIf="currentQuestionIndex < exercice.Questions.length - 1" (click)="nextQuestion()" class="btn btn-primary px-4 py-2 rounded-lg shadow bg-blue-500 text-white hover:bg-blue-600">Next</button>
+      <button *ngIf="currentQuestionIndex === exercice.Questions.length - 1" (click)="submitQuiz()" class="btn btn-success px-4 py-2 rounded-lg shadow bg-green-500 text-white hover:bg-green-600 ml-auto">Submit</button>
+    </div>
+  </div>
+</div>

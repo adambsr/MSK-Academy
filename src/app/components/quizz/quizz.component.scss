@@ -1,0 +1,53 @@
+.quiz-container {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .quiz-header {
+    text-align: center;
+  }
+  
+  .quiz-question {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 1.5rem;
+  }
+  
+  input[type="radio"] {
+    accent-color: #3b82f6; /* Tailwind's blue-500 */
+  }
+  
+  .btn {
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-primary {
+    background-color: #3b82f6;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #2563eb;
+  }
+  
+  .btn-success {
+    background-color: #10b981;
+    color: white;
+  }
+  
+  .btn-success:hover {
+    background-color: #059669;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  

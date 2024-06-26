@@ -37,7 +37,6 @@ export class MycoursesComponent implements OnInit {
   
 
     displayedColumns: string[] = [
-        'position',
         'picturecourse',
         'titlecourse',
         // 'subtitle',

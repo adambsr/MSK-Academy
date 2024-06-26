@@ -25,6 +25,7 @@ export class LessonsService {
   getLessons(): Observable<Lessons[]>{
     return this.http.get<[Lessons]>(this.APIUrl+'Lessons');
   }
+  
 
   addLesson(val: any): any{
     return this.http.post(this.APIUrl+'Lessons',val);

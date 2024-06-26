@@ -146,7 +146,7 @@ export class CoursedetailsComponent {
           this.router.navigateByUrl("dashboard/academy/"+idCourse);
 
         }else{
-          alert("You can not Enrool Now check later ");
+          alert("Failed to enroll, please try again later.");
         }
         
            
@@ -210,6 +210,5 @@ getCoursePicture(PictureCourse: string): string {
 getLessonPicture(PictureLesson: string): string {
     return `${this.Config.getPhotoPath('lessons')}${PictureLesson}`;
 }
-
 
 }

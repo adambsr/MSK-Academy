@@ -62,8 +62,7 @@ export class EditprofcoursesComponent implements OnInit {
   ) {
     this.route.params.subscribe((params: Params) => {
       this.id = Number(params['id']);
-    }
-    );
+    });
   }
 
   ngOnInit(): void {

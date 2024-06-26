@@ -10,23 +10,24 @@ import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { FuseFindByKeyPipe } from '@fuse/pipes/find-by-key/find-by-key.pipe';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { Config } from 'app/Config/Config';
+import { Exercice } from 'app/Models/exercices';
 import { CoursesService } from 'app/Services/courses.service';
+import { ExercicesService } from 'app/Services/exercices.service';
 import { LessonsService } from 'app/Services/lessons.service';
 import { AcademyService } from 'app/modules/admin/apps/academy/academy.service';
 import { Category, Course } from 'app/modules/admin/apps/academy/academy.types';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject} from 'rxjs';
 
 @Component({
-    selector       : 'academy-details',
-    templateUrl    : './details.component.html',
-    encapsulation  : ViewEncapsulation.None,
+    selector: 'academy-details',
+    templateUrl: './details.component.html',
+    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone     : true,
-    imports        : [MatSidenavModule, RouterLink, MatIconModule, NgIf, NgClass, NgFor, MatButtonModule, MatProgressBarModule, CdkScrollable, MatTabsModule, FuseFindByKeyPipe],
+    standalone: true,
+    imports: [MatSidenavModule, RouterLink, MatIconModule, NgIf, NgClass, NgFor, MatButtonModule, MatProgressBarModule, CdkScrollable, MatTabsModule, FuseFindByKeyPipe],
 })
-export class AcademyDetailsComponent implements OnInit, OnDestroy
-{
-    @ViewChild('courseSteps', {static: true}) courseSteps: MatTabGroup;
+export class AcademyDetailsComponent implements OnInit, OnDestroy {
+    @ViewChild('courseSteps', { static: true }) courseSteps: MatTabGroup;
     categories: Category[];
     course: Course;
     currentStep: number = 0;
@@ -35,17 +36,18 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     public Config: Config = new Config();
+    private exercices:Exercice[]=[];
 
     idCourse: number = 4;
-    myCourse : any;
-    myLesson : any;
-    lessons : any;
-    enrolledLessons : any;
-    totalLessons : number = 0;
+    myCourse: any;
+    myLesson: any;
+    lessons: any;
+    enrolledLessons: any;
+    totalLessons: number = 0;
     currentOrderLesson: number = 1;
-    currentLessonImg : string = "";
-    currentLessonContent : any =" ";
-    idUser : number = Number(localStorage.getItem("UserId"));
+    currentLessonImg: string = "";
+    currentLessonContent: any = " ";
+    idUser: number = Number(localStorage.getItem("UserId"));
     currentLesson: any;
 
     /**
@@ -57,15 +59,16 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy
         private _changeDetectorRef: ChangeDetectorRef,
         private _elementRef: ElementRef,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
-        private coursesService : CoursesService,
+        private coursesService: CoursesService,
         private LessonsService: LessonsService,
-        private router: Router, 
+        private ExerciceService: ExercicesService,
+        private router: Router,
         private route: ActivatedRoute
-    )
-    {
+    ) {
         this.route.params.subscribe((params: Params) => {
-            this.idCourse = params['id'];}
-            );
+            this.idCourse = params['id'];
+        }
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -75,13 +78,9 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
+        this.fetchquiz();
         //this.fetchCourseDetails();
-
-
-
-
         this.coursesService.getCourseById(this.idCourse).subscribe(
             (resCourse: any) => {
                 this.myCourse = resCourse[0];
@@ -92,9 +91,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy
                 console.error(error);
             }
         );
-
-     
-
+        
         this.LessonsService.getLessonByCourse(this.idCourse).subscribe(
             (resLesson: any) => {
                 this.lessons = resLesson;
@@ -109,9 +106,9 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy
                 console.log("Error getLessonByCourse " + this.idCourse);
                 console.error(error);
             }
-          );
+        );
 
-          this.LessonsService.GetEnrolledLessonByCourse(this.idCourse,this.idUser).subscribe(
+        this.LessonsService.GetEnrolledLessonByCourse(this.idCourse, this.idUser).subscribe(
             (resLesson: any) => {
                 console.log(resLesson);
                 this.enrolledLessons = resLesson;
@@ -120,9 +117,9 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy
                 this.currentOrderLesson = resLesson[0].ProgressCurrentLesson;
 
                 // NOTICE: important !!!!! this.currentOrderLesson -1  because table begin with 0 and order begin with 1. 
-                this.currentLessonContent = this.lessons[this.currentOrderLesson -1 ].ContentLesson;
-                this.currentLessonImg = this.lessons[this.currentOrderLesson - 1 ].PictureLesson;
- 
+                this.currentLessonContent = this.lessons[this.currentOrderLesson - 1].ContentLesson;
+                this.currentLessonImg = this.lessons[this.currentOrderLesson - 1].PictureLesson;
+
                 console.log(this.currentLessonImg);
 
             },
@@ -130,8 +127,8 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy
                 console.log("Error GetEnrolledLessonByCourse " + this.idCourse);
                 console.error(error);
             }
-          );
-        
+        );
+
         // Get the categories
         // this._academyService.categories$
         //     .pipe(takeUntil(this._unsubscribeAll))
@@ -179,18 +176,18 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy
         //         // Mark for check
         //         this._changeDetectorRef.markForCheck();
         //     });
+        
     }
 
 
     async fetchCourseDetails() {
-     
+
     }
 
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
@@ -200,10 +197,10 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy
         return this.Config.getPhotoPath('lessons') + PictureLesson;
     }
 
-    updateProgressLesson(){
-        this.LessonsService.UpdateLessonProgress(this.idCourse,this.idUser,this.currentOrderLesson).subscribe(
+    updateProgressLesson() {
+        this.LessonsService.UpdateLessonProgress(this.idCourse, this.idUser, this.currentOrderLesson).subscribe(
             (resEnrool: any) => {
-                
+
                 console.log(resEnrool);
 
             },
@@ -211,7 +208,20 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy
                 console.log("Error UpdateLessonProgress " + this.idCourse);
                 console.error(error);
             }
-          );
+        );
+    }
+    
+    fetchquiz() {
+        this.ExerciceService.getExerciceByCourse(this.idCourse).subscribe(
+            (exercices: Exercice[]) => {
+                console.log(exercices);
+               this.exercices=exercices;
+            },
+            (error) => {
+                console.log("Error getting quizz for this course: " + this.idCourse);
+                console.error(error);
+            }
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -223,11 +233,10 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy
      *
      * @param step
      */
-    goToStep(LessonOrder: number, lessonContent : any , lessonImg : any ): void
-    {
+    goToStep(LessonOrder: number, lessonContent: any, lessonImg: any): void {
         // Set the current step
         //this.currentStep = step;
-        this.currentOrderLesson = LessonOrder; 
+        this.currentOrderLesson = LessonOrder;
         this.currentLessonContent = lessonContent;
         this.currentLessonImg = lessonImg;
 
@@ -244,18 +253,16 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy
     /**
      * Go to previous step
      */
-    goToPreviousStep(): void
-    {
+    goToPreviousStep(): void {
         // Return if we already on the first step
-        if ( this.currentOrderLesson === 1 )
-        {
-            
+        if (this.currentOrderLesson === 1) {
+
             return;
         }
 
-        this.currentOrderLesson --;
+        this.currentOrderLesson--;
         // Go to step
-        this.goToStep(this.currentOrderLesson   ,this.lessons[this.currentOrderLesson - 1 ].ContentLesson, this.lessons[this.currentOrderLesson -1 ].PictureLesson);
+        this.goToStep(this.currentOrderLesson, this.lessons[this.currentOrderLesson - 1].ContentLesson, this.lessons[this.currentOrderLesson - 1].PictureLesson);
 
         // Scroll the current step selector from sidenav into view
         this._scrollCurrentStepElementIntoView();
@@ -264,19 +271,19 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy
     /**
      * Go to next step
      */
-    goToNextStep(): void
-    {
+    goToNextStep(): void {
         // Return if we already on the last step
-        if ( this.currentOrderLesson === this.totalLessons  )
-        {
+        if (this.currentOrderLesson === this.totalLessons) {
             this.updateProgressLesson();
+            // this.fetchquiz();
+            this.router.navigate(['dashboard/quizz/'+ this.idCourse]);
             return;
         }
 
-        this.currentOrderLesson ++;
+        this.currentOrderLesson++;
 
         // Go to step
-        this.goToStep(this.currentOrderLesson,this.lessons[this.currentOrderLesson -1 ].ContentLesson, this.lessons[this.currentOrderLesson -1 ].PictureLesson);
+        this.goToStep(this.currentOrderLesson, this.lessons[this.currentOrderLesson - 1].ContentLesson, this.lessons[this.currentOrderLesson - 1].PictureLesson);
 
         // Scroll the current step selector from sidenav into view
         this._scrollCurrentStepElementIntoView();
@@ -288,8 +295,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy
      * @param index
      * @param item
      */
-    trackByFn(index: number, item: any): any
-    {
+    trackByFn(index: number, item: any): any {
         return item.id || index;
     }
 
@@ -306,22 +312,17 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy
      *
      * @private
      */
-    private _scrollCurrentStepElementIntoView(): void
-    {
+    private _scrollCurrentStepElementIntoView(): void {
         // Wrap everything into setTimeout so we can make sure that the 'current-step' class points to correct element
-        setTimeout(() =>
-        {
+        setTimeout(() => {
             // Get the current step element and scroll it into view
             const currentStepElement = this._document.getElementsByClassName('current-step')[0];
-            if ( currentStepElement )
-            {
+            if (currentStepElement) {
                 currentStepElement.scrollIntoView({
                     behavior: 'smooth',
-                    block   : 'start',
+                    block: 'start',
                 });
             }
         });
     }
-
-
 }
