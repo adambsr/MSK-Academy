@@ -1,11 +1,15 @@
 /* eslint-disable */
 import { FuseNavigationItem } from '@fuse/components/navigation';
+import { LocalstorageService } from 'app/Services/localstorage.service';
+import { AuthSignInComponent } from 'app/modules/auth/sign-in/sign-in.component';
+
+const  localstorage = new LocalstorageService();
 
 export const defaultNavigation: FuseNavigationItem[] = [
     {
         id      : 'dashboards',
-        title   : 'Dashboards',
-        subtitle: 'Unique dashboard designs',
+        title   : 'Admin Dashboard',
+        subtitle: 'Maintain and overview',
         type    : 'group',
         icon    : 'heroicons_outline:home',
         children: [
@@ -20,10 +24,12 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type : 'basic',
                 icon : 'heroicons_outline:chart-pie',
                 link : '/dashboard/analytics',
+                hidden: () => localstorage.getUserRole() !== '4',
             },
             {
                 id  : 'divider-2',
                 type: 'divider',
+                
             },
             //USERS
             {
@@ -32,6 +38,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type:  'collapsable',
                 icon:  'heroicons_outline:user-group',
                 link:  '/dashboards/users',
+                hidden: () =>  localstorage.getUserRole() !== '4',
                 children: [
                     {
                         id   : 'user.add',
@@ -56,6 +63,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type:  'collapsable',
                 icon:  'heroicons_outline:briefcase',
                 link:  '/dashboards/tutors',
+               hidden: () => localstorage.getUserRole() !== '4',
                 children: [
                     {
                         id   : 'tutor.view',
@@ -72,6 +80,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Candidates',
                 type:  'collapsable',
                 icon:  'heroicons_outline:academic-cap',
+                hidden: () => localstorage.getUserRole() !== '4',
                 link:  '/dashboards/candidates',
                 children: [
                     {
@@ -86,6 +95,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
             {
                 id  : 'divider-2',
                 type: 'divider',
+                hidden: () => localstorage.getUserRole() !== '4',
             },
             //CATEGORIES
             {
@@ -94,6 +104,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type: 'collapsable',
                 icon: 'heroicons_outline:square-3-stack-3d',
                 link: '/dashboards/categories',
+                hidden: () =>  localstorage.getUserRole() !== '4',
                 children: [
                     {
                         id: 'category.add',
@@ -119,6 +130,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type:  'collapsable',
                 icon:  'heroicons_outline:book-open',
                 link:  '/dashboards/courses',
+                hidden:()=>localstorage.getUserRole() ==='1' ,
                 children: [
                     {
                         id   : 'Course.add',
@@ -143,6 +155,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type:  'collapsable',
                 icon:  'heroicons_outline:document-duplicate',
                 link:  '/dashboards/lessons',
+                hidden:()=> localstorage.getUserRole() ==='1'  ,
                 children: [
                     {
                         id   : 'lesson.add',
@@ -167,6 +180,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type:  'collapsable',
                 icon:  'heroicons_outline:video-camera',
                 link:  '/dashboards/meets',
+                hidden:()=>localstorage.getUserRole() ==='1',
                 children: [
                     {
                         id   : 'meet.add',
@@ -191,6 +205,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type:  'collapsable',
                 icon:  'heroicons_outline:shield-check',
                 link:  '/dashboards/badges',
+                hidden:()=>localstorage.getUserRole() !=='4',
                 children: [
                     {
                         id   : 'badge.add',
@@ -211,6 +226,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
             {
                 id  : 'divider-2',
                 type: 'divider',
+                hidden:()=>localstorage.getUserRole() ==='1',
             },
             //MY COURSES
             {
@@ -219,6 +235,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type : 'basic',
                 icon : 'heroicons_outline:academic-cap',
                 link : '/dashboard/mycourse/view/1',
+                hidden:()=>localstorage.getUserRole() ==='4' ,
             },
             //MY MEETS
             {
@@ -227,6 +244,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type : 'basic',
                 icon : 'heroicons_outline:video-camera',
                 link : '/dashboard/mymeets/view/1',
+                hidden:()=>localstorage.getUserRole() ==='4' ,
             },
             //MY BADGES
             {
@@ -235,6 +253,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type : 'basic',
                 icon : 'heroicons_outline:shield-check',
                 link : 'mybadges/view/1',
+                hidden:()=>localstorage.getUserRole() !=='2' ,
             },
             //MY CERTIFICATES
             {
@@ -243,6 +262,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type : 'basic',
                 icon : 'heroicons_outline:trophy',
                 link : 'mycertificates/view/1',
+                hidden:()=>localstorage.getUserRole() !=='2',
             },
         ],
     },
@@ -269,8 +289,8 @@ export const defaultNavigation: FuseNavigationItem[] = [
     // },
     {
         id      : 'pages',
-        title   : 'Pages',
-        subtitle: 'Custom made page designs',
+        title   : 'Profile & Settings',
+        subtitle: 'View and edit your profile',
         type    : 'group',
         icon    : 'heroicons_outline:document',
         children: [
@@ -279,14 +299,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Profile',
                 type : 'basic',
                 icon : 'heroicons_outline:user-circle',
-                link : 'profile',
+                link : 'profile/'+localStorage.getItem('UserId'),
             },
             {
                 id   : 'pages.settings',
                 title: 'Settings',
                 type : 'basic',
                 icon : 'heroicons_outline:cog-8-tooth',
-                link : 'settings',
+                link : 'settings/'+localStorage.getItem('UserId'),
             },
         ],
     },

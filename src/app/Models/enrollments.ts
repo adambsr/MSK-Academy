@@ -4,5 +4,5 @@ export interface Enrollments {
     IdCourse?        : number;
     EnrollmentDate?  : Date;
     ProgressCurrentLesson?  : number;
-    TotalLessonInCourse?    : number;
+    TotalLessonsInCourse?    : number;
 }

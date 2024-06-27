@@ -117,10 +117,10 @@ export class LoginService {
     // Sign-in   // role : 1: Employee / 2: PROF / 3: Student
     signIn(user: Login) {
         console.log('Path = ' + this.loginPath);
-        console.log(user);
+        console.log("user", user);
         return this.http.post<any>(this.loginPath, user).subscribe(
             (res: any) => {
-                console.log(res);
+                console.log("res", res);
                 if (res.StatusCode == 302) {
                     alert(res.StatusMessage); //email not existe
                 } else if (res.StatusCode == 303) {
@@ -136,9 +136,18 @@ export class LoginService {
                     localStorage.setItem('photo', res.user.Photo);
                     localStorage.setItem('UserId', res.user.UserId);
                     localStorage.setItem('IdRole', res.user.IdRole);
+                    // localStorage.setItem('IdCountry', res.user.IdCountry);
+                    // localStorage.setItem('BirthDate', res.user.BirthDate);
+
                     localStorage.setItem('status', 'online');
                     this._authenticated = true;
-                    this.router.navigate(['dashboard/users']);
+                    if(res.user.IdRole === 4 ){
+                        this.router.navigate(['dashboard/users']);
+
+                    }else {
+                        this.router.navigate(['dashboard/profile/' + res.user.UserId]);
+                    }
+                    
 
                 } else {
                     alert('impossible !');

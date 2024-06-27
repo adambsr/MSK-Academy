@@ -80,6 +80,9 @@ export class AuthSignInComponent implements OnInit
     /**
      * Sign in
      */
+    getUserRole(): string {
+        return localStorage.getItem('IdRole') || '';
+      }
     signIn(): void
     {
         this.LoginService.signIn(this.signInForm.value);

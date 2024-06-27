@@ -52,9 +52,9 @@ export class UsersService {
     return this.http.delete(this.APIUrl+'Users/'+val);
   }
 
-  getUserId(val: any): any{
+  getUserId(val: any): Observable<Users>{
     console.log(this.APIUrl+'Users/'+val);
-    return this.http.get(this.APIUrl+'Users/'+val);
+    return this.http.get<Users>(this.APIUrl+'Users/'+val);
   }
 
   updateUser(val: any): any{

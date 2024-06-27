@@ -115,7 +115,7 @@ export class CoursedetailsComponent {
   // }
 
   EnrollCourse(idCourse : number){
-    alert(this.lessons.length);
+    // alert(this.lessons.length);
     //const datetime_stream0 =new Date(form.value['myDate']);
 
     if(this.IsEnrolled){
@@ -129,9 +129,9 @@ export class CoursedetailsComponent {
     const IdCourse         : number = this.idCourse;
     const EnrollmentDate   : Date =new Date();
     const ProgressCurrentLesson   : number = 0;
-    const TotalLessonInCourse     : number = Number(this.lessons.length);
+    const TotalLessonsInCourse     : number = Number(this.lessons.length);
      
-    const Enrollement : Enrollments = {IdEnrollment,IdCandidate,IdCourse,EnrollmentDate,ProgressCurrentLesson,TotalLessonInCourse};
+    const Enrollement : Enrollments = {IdEnrollment,IdCandidate,IdCourse,EnrollmentDate,ProgressCurrentLesson,TotalLessonsInCourse};
     
     this.coursesService.AddEnrollment(Enrollement).subscribe(
       (resEnroolCourse: any) => {

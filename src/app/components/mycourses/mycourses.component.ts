@@ -21,7 +21,6 @@ import { Router } from '@angular/router';
 import { Observable, startWith, map } from 'rxjs';
 import { CoursesService } from 'app/Services/courses.service';
 import { Config } from 'app/Config/Config';
-import { Courses } from 'app/Models/courses';
 import { LessonsService } from 'app/Services/lessons.service';
 
 @Component({
@@ -106,7 +105,7 @@ export class MycoursesComponent implements OnInit {
         this.CoursesService.getEnrolledCourseByCandidate(this.idUser).subscribe(
             (res: any) => {
 
-                console.log(res);
+                console.log("getEnrolledCourseByCandidate", res);
                 this.allLessons = res;
                 this.Courses = res;
 

@@ -108,16 +108,16 @@ export class EditcategoryComponent implements OnInit {
             console.log(data);
 
             if(data[0].Active == 1){
-                alert('Mrigla');
+                // alert('Mrigla');
                 this.toggleControl.setValue(true);
                 this.toggleValue = true;
                 this.ToogleActive = true;
             }else{
                 this.toggleControl.setValue(false);
                 this.ToogleActive = false;
-                alert("mchouma");
+                // alert("mchouma");
             }
-            alert(this.ToogleActive);
+            // alert(this.ToogleActive);
             this.categoryForm = this.formBuilder.group({
                 // IdCateg: [''],
                 TitleEn: [data[0].TitleEn, Validators.required],
@@ -158,12 +158,12 @@ export class EditcategoryComponent implements OnInit {
 
     changeActive(active){
        this.ToogleActive = !this.ToogleActive;
-       alert(this.ToogleActive);
+       // alert(this.ToogleActive);
     }
 
     submit(): void {
         //alert(this.categoryForm.value['Active']);
-        alert(this.ToogleActive);
+        // alert(this.ToogleActive);
         const IdCateg = Number(this.id);
         const TitleEn = this.categoryForm.value['TitleEn'];
         const TitleFr = this.categoryForm.value['TitleFr'];
